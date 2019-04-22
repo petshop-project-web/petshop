@@ -5,12 +5,14 @@
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
-
-body {
-  background-color: rgb(45, 45, 45);
+html {
+  scroll-behavior: smooth;
 }
 
 /* navbar */
+.navbar {
+  background-color: rgb(22, 22, 22);
+}
 .brand {
   width: 90px;
 }
@@ -21,6 +23,16 @@ ul .navbar-brand {
   visibility: hidden;
   height: 1px;
 }
+.form-control:focus {
+  height: 30px;
+  border-radius: 5px;
+}
+.form-control ,.form-inline .btn {
+  background: none;
+  border: none;
+  border-radius: 0;
+  border-bottom: solid 1px white;
+}
 
 /* slide */
 .img-slide {
@@ -28,13 +40,12 @@ ul .navbar-brand {
   background-size: cover;
   background-position: left;
   width: 100%;
-  height: 500px;
-  margin-top: -69px;
+  height: 550px;
 }
 .slide {
   background-color:rgba(43, 43, 43, 0.5);
   width: 100%;
-  height: 500px;
+  height: 550px;
 }
 
 .big-brand a img{
@@ -42,7 +53,16 @@ ul .navbar-brand {
   margin: 100px auto;
   position: static;
 }
-.scrol-down i {
+.register-promo {
+  color: white;
+  margin: 20px;
+  text-align: center;
+}
+.button-clean {
+  background-color: transparent;
+  border: none;
+}
+.scrollTo i {
   visibility: hidden;
 }
 
@@ -50,13 +70,19 @@ ul .navbar-brand {
 .produk {
   width: 200px;
 }
+.content {
+  padding: 50px;
+}
 
+/* service */
+.location {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
 /* footer */
-footer {
-  height:300px;
-  padding: 40px;
-  background-color: rgb(29, 94, 60);
+footer .container {
+  padding: 40px 20px;
+  box-shadow: 0px -3px 5px -4px rgba(19, 19, 19, 0.5);
 }
 .copyright {
   margin-top: 30px;
@@ -64,7 +90,9 @@ footer {
 }
 @media (min-width: 992px) {
   /* navbar */
-
+  .navbar {
+    background-color: transparent;
+  }
   .navbar-collapse {
     margin: 0 10%;
   }
@@ -77,16 +105,17 @@ footer {
 
   /* slide */
   .img-slide {
-    height: 700px;
-      text-align: center;
+    height: 800px;
+    text-align: center;
+    margin-top: -69px;
   }
   .slide {
-    height: 700px;
+    height: 800px;
   }
   .big-brand a img{
-    width: 400px;
+    width: 380px;
   }
-  .scrol-down i {
+  .scrollTo i {
     visibility: visible;
   }
   .fa-arrow-alt-circle-down{

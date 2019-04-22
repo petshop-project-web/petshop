@@ -11,7 +11,7 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Pet Shop</title>
+    <title>Product</title>
 
     <link rel="shortcut icon" href="img/logo.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i" rel="stylesheet">
@@ -21,7 +21,8 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
   </head>
 
   <body>
-<!-- navigation bar -->
+
+    <!-- navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">
           <img class="brand" src="img/logotext.png" alt="logo">
@@ -36,22 +37,24 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
             <img class="brand" src="img/logotext.png" alt="logo">
           </a>
           <li class="nav-item">
-            <a class="nav-link" href="#product">Product</a>
+            <a class="nav-link" href="#">Product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#service">Service</a>
+            <a class="nav-link" href="#">Service</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#location">Location</a>
+            <a class="nav-link" href="#">Location</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-1">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search fa-1x"></i></button>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
         <div class="right-navbar">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
               <a class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user"></i>
@@ -74,18 +77,12 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
             <img src="img/logo.png" alt="">
           </a>
         </center>
-        <div class="register-promo">
-          <p>REGISTER TO GET DISCOUNT VOUCHER</p>
-          <a class="btn btn-outline-success" href="register.php">REGISTER</a>
-        </div>
-          <a class="scrollTo" href="#product">
-            <i class="fas fa-arrow-alt-circle-down fa-3x"></i>
-          </a>
+        <a class="scrol-down" href="#product"><i class="fas fa-arrow-alt-circle-down fa-3x"></i></a>
       </div>
     </div>
 
-<!-- product -->
-    <div class="content" id="product">
+    <!-- content -->
+    <div class="content">
       <div class="container">
         <div class="row">
           <div class="col-md-3 mr-2">
@@ -142,18 +139,6 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
       </div>
     </div>
 
-<!-- Location -->
-    <div class="container" id="location">
-      <div class="jumbotron location">
-        <h1 class="display-4">Our Service</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-      </div>
-    </div>0
-
-<!-- footer -->
     <footer>
       <div class="container">
           <div class="row">
@@ -183,21 +168,7 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
 
 
 
-    <script type="text/javascript">
-      $('.scrollTo').on('click', function(event) {
-          var target = $(this.getAttribute('href'));
-          if( target.length ) {
-              event.preventDefault();
-              $('html, body').stop().animate({
-                  scrollTop: target.offset().top
-              }, 1000);
-          }
-      });
-
-      </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
