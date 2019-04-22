@@ -36,9 +36,7 @@ ul .navbar-brand {
   width: 100%;
   height: 500px;
 }
-.big-brand {
-  position: relative;
-}
+
 .big-brand a img{
   width: 200px;
   margin: 100px auto;
@@ -48,6 +46,22 @@ ul .navbar-brand {
   visibility: hidden;
 }
 
+/* content */
+.produk {
+  width: 200px;
+}
+
+
+/* footer */
+footer {
+  height:300px;
+  padding: 40px;
+  background-color: rgb(29, 94, 60);
+}
+.copyright {
+  margin-top: 30px;
+  text-align: center;
+}
 @media (min-width: 992px) {
   /* navbar */
 
@@ -63,11 +77,11 @@ ul .navbar-brand {
 
   /* slide */
   .img-slide {
-    height: 600px;
+    height: 700px;
       text-align: center;
   }
   .slide {
-    height: 600px;
+    height: 700px;
   }
   .big-brand a img{
     width: 400px;
@@ -78,5 +92,5 @@ ul .navbar-brand {
   .fa-arrow-alt-circle-down{
     width: 200px;
     color: rgb(19, 191, 74);
-  }
+  }/* content */
 }
