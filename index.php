@@ -88,9 +88,12 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
     <div class="content" id="product">
       <div class="container">
         <div class="row">
-          <div class="col-md-3 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
+          <?php for ($i=0; $i < 20; $i++) {
+            // code...
+          ?>
+          <div class="col-sm-4">
+            <div class="card product" style="width: 18rem;">
+              <img src="img/logo.png" data-src="logo.png" class="lazy-load" alt="...">
               <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -98,47 +101,10 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
               </div>
             </div>
           </div>
-          <div class="col-md-3 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
+
+        <?php } ?>
         </div>
+        <img src="img/<?php echo $data['id'] ?>" alt="">
       </div>
     </div>
 
@@ -151,7 +117,7 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
       </div>
-    </div>0
+    </div>
 
 <!-- footer -->
     <footer>
@@ -181,23 +147,35 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
         </div>
       </footer>
 
+      <script type="text/javascript">
+        var load = window.addEventListener("load", function() {
 
 
-    <script type="text/javascript">
-      $('.scrollTo').on('click', function(event) {
-          var target = $(this.getAttribute('href'));
-          if( target.length ) {
-              event.preventDefault();
-              $('html, body').stop().animate({
-                  scrollTop: target.offset().top
-              }, 1000);
+        });
+        var resize = window.addEventListener("resize", function() {
+
+
+        });
+        var scroll = window.addEventListener("scroll", function() {
+
+
+        });
+        function loadImages() {
+          var images = document.querySelectorAll(".lazy-load");
+
+          for (var i = 0; i < immage.length; i++) {
+            var imageBounds = images[i].getBoundingClientRect();
+
+            if (imageBounds.top >= 0 &&
+                imageBounds.left >= 0 &&
+                imageBounds.bottom <= window.innerHeight &&
+                imageBounds.right <= window.innerWidht) {
+                  images[i].src = "i"
+            }
           }
-      });
-
+        }
       </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
