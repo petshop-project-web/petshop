@@ -88,12 +88,12 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
     <div class="content" id="product">
       <div class="container">
         <div class="row">
-          <?php for ($i=0; $i < 20; $i++) {
+          <?php for ($i=0; $i < 9; $i++) {
             // code...
           ?>
           <div class="col-sm-4">
             <div class="card product" style="width: 18rem;">
-              <img src="img/logo.png" data-src="logo.png" class="lazy-load" alt="...">
+              <img src="img/logo.png" data-src="logo.png" class="lazy-load" height="200px" alt="...">
               <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
