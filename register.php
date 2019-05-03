@@ -22,7 +22,7 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
 
   <body>
 <!-- navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="index.php">
           <img class="brand" src="img/logotext.png" alt="logo">
         </a>
@@ -36,7 +36,7 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
             <img class="brand" src="img/logotext.png" alt="logo">
           </a>
           <li class="nav-item">
-            <a class="nav-link" href="#product">Product</a>
+            <a class="nav-link" href="index.php">Product</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#service">Service</a>
@@ -66,59 +66,30 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
       </div>
     </nav>
 
-<!-- slide -->
-    <div class="img-slide" id="slide">
-      <div class="slide">
-        <center class="big-brand">
-          <a class="" href="#">
-            <img src="img/logo.png" alt="">
-          </a>
-        </center>
-        <div class="register-promo">
-          <p>REGISTER TO GET DISCOUNT VOUCHER</p>
-          <a class="btn btn-outline-success" href="register.php">REGISTER</a>
+    <!-- login form -->
+    <div class="register">
+      <div class="row">
+        <h2>Register</h2>
+      </div>
+      <form>
+        <div class="form-group">
+          <label for="exampleInputName1">Nama Lengkap</label>
+          <input type="text" name="nama" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Email/Username">
+          <small id="nameHelp" class="form-text text-muted">Masukan Nama Lengkap</small>
         </div>
-          <a class="scrollTo" href="#product">
-            <i class="fas fa-arrow-alt-circle-down fa-3x"></i>
-          </a>
-      </div>
-    </div>
-
-<!-- product -->
-    <div class="content" id="product">
-      <div class="container">
-        <div class="row">
-          <?php for ($i=0; $i < 9; $i++) {
-            // code...
-          ?>
-          <div class="col-sm-4">
-            <div class="card product" style="width: 18rem;">
-              <img src="img/logo.png" data-src="logo.png" class="lazy-load" height="200px" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-
-        <?php } ?>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Alamat Email</label>
+          <input type="email" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email/Username">
+          <small id="emailHelp" class="form-text text-muted">Masukan Alamat E-mail</small>
         </div>
-        <img src="img/<?php echo $data['id'] ?>" alt="">
-      </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" name="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordHelp" placeholder="Password">
+          <small id="passwordHelp" class="form-text text-muted">Masukan password yang unik</small>
+        </div>
+        <button type="submit" class="btn btn-success">Register</button>
+      </form>
     </div>
-
-<!-- Location -->
-    <div class="container" id="location">
-      <div class="jumbotron location">
-        <h1 class="display-4">Our Service</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-      </div>
-    </div>
-
 <!-- footer -->
     <footer>
       <div class="container">
@@ -146,35 +117,6 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
           Copyright (c) 2019 Copyright Holder All Rights Reserved.
         </div>
       </footer>
-
-      <script type="text/javascript">
-        var load = window.addEventListener("load", function() {
-
-
-        });
-        var resize = window.addEventListener("resize", function() {
-
-
-        });
-        var scroll = window.addEventListener("scroll", function() {
-
-
-        });
-        function loadImages() {
-          var images = document.querySelectorAll(".lazy-load");
-
-          for (var i = 0; i < immage.length; i++) {
-            var imageBounds = images[i].getBoundingClientRect();
-
-            if (imageBounds.top >= 0 &&
-                imageBounds.left >= 0 &&
-                imageBounds.bottom <= window.innerHeight &&
-                imageBounds.right <= window.innerWidht) {
-                  images[i].src = "i"
-            }
-          }
-        }
-      </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

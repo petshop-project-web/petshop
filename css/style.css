@@ -24,10 +24,9 @@ ul .navbar-brand {
   height: 1px;
 }
 .form-control:focus {
-  height: 30px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
-.form-control ,.form-inline .btn {
+.form-control , .form-inline .btn {
   background: none;
   border: none;
   border-radius: 0;
@@ -87,6 +86,17 @@ footer .container {
   margin: 30px 0;
   text-align: center;
 }
+
+/* login */
+.login , .register{
+  margin: 80px auto;
+  width: 70%;
+}
+.login form .form-control , .register form .form-control{
+  border: 1px solid rgb(128, 128, 128);
+  border-radius: 4px;
+  max-width: 600px;
+}
 @media (min-width: 992px) {
   /* navbar */
   .navbar {
@@ -120,5 +130,19 @@ footer .container {
   .fa-arrow-alt-circle-down{
     width: 200px;
     color: rgb(19, 191, 74);
-  }/* content */
+  }
+
+  /* login */
+  .login, .register {
+    margin: 80px auto;
+    padding: 0 5%;
+    width: 40%;
+  }
+  .login form small {
+    margin-bottom: 20px;
+  }
+  .register {
+    width: 60%;
+  }
+
 }
