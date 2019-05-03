@@ -18,6 +18,26 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+
+    <script>
+      function initMap() {
+      var myLatLng = {lat: -7.7588344, lng: 110.405816};
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 20,
+        center: myLatLng
+      });
+
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'The Lucky Pet Shop n Care'
+      });
+    }
+    </script>
+      <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuWuNmo6K-TBI-yb3ZVu7b0TD2fQBrP4Q&callback=initMap">
+      </script>
   </head>
 
   <body>
@@ -87,30 +107,32 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
 <!-- product -->
     <div class="content" id="product">
       <div class="container">
+        <h3>Products</h3>
+
         <div class="row">
-          <?php for ($i=0; $i < 9; $i++) {
+          <?php for ($i=0; $i < 5; $i++) {
             // code...
           ?>
-          <div class="col-sm-4">
-            <div class="card product" style="width: 18rem;">
+          <a class="mb-3 mt-3 mr-2 ml-2">
+            <div class="card product" style="width: 13rem;">
               <img src="img/logo.png" data-src="logo.png" class="lazy-load" height="200px" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title">Wiskas</h5>
+                <p class="card-text">Rp. 200.000</p>
+                <p class="card-location">Yogyakarta</p>
               </div>
             </div>
-          </div>
+          </a>
 
         <?php } ?>
         </div>
-        <img src="img/<?php echo $data['id'] ?>" alt="">
+
       </div>
     </div>
 
-<!-- Location -->
-    <div class="container" id="location">
-      <div class="jumbotron location">
+<!-- Service -->
+    <div class="container" id="service">
+      <div class="jumbotron service">
         <h1 class="display-4">Our Service</h1>
         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
         <hr class="my-4">
@@ -119,26 +141,32 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
       </div>
     </div>
 
+<!-- Location -->
+    <div class="container" id="location">
+      <h3>Find Us !</h3>
+      <div class="jumbotron location" id="map"></div>
+    </div>
+
 <!-- footer -->
     <footer>
       <div class="container">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 mb-5">
               <h2>INFORMATION</h2>
               <br><a href="#">About Us</a>
               <br><a href="#">Contact Us</a>
               <br><a href="#">Find Us</a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-5">
               <h2>Contact Us</h2>
               <br><a href="#">Jl. Babarsari no 24, Depok</a>
               <br><a href="#">082133882546</a>
               <br><a href="#">Line : @petshop</a>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-5">
               <h2>Newsteller</h2>
               <br>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.
-              <br><input type="email" name="" value=""><button type="submit" name="button"></button>
+              <br><input type="email" class="input-subscribe" placeholder="Subscribe Newsteller.."   name="" value=""><button type="submit" class="btn-subscribe" name="button">SUBSCRIBE</button>
             </div>
           </div>
         </div>
