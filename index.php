@@ -93,7 +93,7 @@ $products = query("SELECT * FROM products");
           <?php foreach($products as $product): ?>
           <div class="col-sm-4">
             <div class="card product" style="width: 18rem;">
-              <img src="img/products/<?= $product["product_img_name"]?>" class="lazy-load" height="200px" alt="gambar rusak">
+              <img src="img/products/<?= $product["product_img_name"]?>" class="lazy-load" height="200px" alt="<?= $product["product_code"]?>">
               <div class="card-body">
                 <?php for ($i=0; $i < $product["product_rating"]; $i++) { ?>
                   <span class="fa fa-star checked"></span>
@@ -101,7 +101,7 @@ $products = query("SELECT * FROM products");
                 <h5 class="card-title"><?= $product["product_name"]?></h5>
                 <p class="price">Rp<?= $product["price_product"]?>,-</p>
                 <p class="card-text"><?= $product["product_desc"]?></p>
-                <a href="#" class="btn btn-primary">ADD TO CART</a>
+                <a href="#" class="btn btn-secondary">ADD TO CART</a>
               </div>
             </div>
           </div>
