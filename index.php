@@ -1,7 +1,9 @@
 <?php
 
+require 'function.php';
 //if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
 if(session_id() == '' || !isset($_SESSION)){session_start();}
+$products = query("SELECT * FROM products");
 
 ?>
 
@@ -88,21 +90,20 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
     <div class="content" id="product">
       <div class="container">
         <div class="row">
-          <?php for ($i=0; $i < 9; $i++) {
-            // code...
+          <?php foreach($products as $product):
           ?>
           <div class="col-sm-4">
             <div class="card product" style="width: 18rem;">
-              <img src="img/logo.png" data-src="logo.png" class="lazy-load" height="200px" alt="...">
+              <img src="img/products/<?= $product["product_img_name"]?>" class="lazy-load" height="200px" alt="gambar rusak">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h5 class="card-title"><?= $product["product_name"]?></h5>
+                <p class="card-text"><?= $product["product_desc"]?></p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
               </div>
             </div>
           </div>
 
-        <?php } ?>
+          <?php endforeach; ?>
         </div>
         <img src="img/<?php echo $data['id'] ?>" alt="">
       </div>
