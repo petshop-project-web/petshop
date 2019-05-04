@@ -90,19 +90,21 @@ $products = query("SELECT * FROM products");
     <div class="content" id="product">
       <div class="container">
         <div class="row">
-          <?php foreach($products as $product):
-          ?>
+          <?php foreach($products as $product): ?>
           <div class="col-sm-4">
             <div class="card product" style="width: 18rem;">
               <img src="img/products/<?= $product["product_img_name"]?>" class="lazy-load" height="200px" alt="gambar rusak">
               <div class="card-body">
+                <?php for ($i=0; $i < $product["product_rating"]; $i++) { ?>
+                  <span class="fa fa-star checked"></span>
+                <?php }?>
                 <h5 class="card-title"><?= $product["product_name"]?></h5>
+                <p class="price">Rp<?= $product["price_product"]?>,-</p>
                 <p class="card-text"><?= $product["product_desc"]?></p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="#" class="btn btn-primary">ADD TO CART</a>
               </div>
             </div>
           </div>
-
           <?php endforeach; ?>
         </div>
         <img src="img/<?php echo $data['id'] ?>" alt="">
