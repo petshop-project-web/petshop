@@ -1,8 +1,25 @@
 <?php
-
+require 'function.php';
 //if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-if(session_id() == '' || !isset($_SESSION)){session_start();}
+/* if(session_id() == '' || !isset($_SESSION)){session_start();} */
 
+if( isset($_POST["submit"]) ){
+  if( register($_POST) > 0 ){
+      echo "
+          <script>
+              alert('Selamat Datang di Dunia Hewan');
+              document.location.href='index.php';
+          </script>
+      ";
+  } else {
+      echo "
+          <script>
+              alert('Mohon Daftar Ulang');
+              document.location.href='register.php';
+          </script>
+      ";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -71,23 +88,67 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
       <div class="row">
         <h2>Register</h2>
       </div>
-      <form>
+
+      <!-- FORM REGISTER -->
+      <form action="" method="post">
         <div class="form-group">
-          <label for="exampleInputName1">Nama Lengkap</label>
-          <input type="text" name="nama" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Email/Username">
-          <small id="nameHelp" class="form-text text-muted">Masukan Nama Lengkap</small>
+          <label for="first_name">Nama Depan</label>
+          <input type="text" name="first_name" class="form-control" id="first_name" placeholder="Nama Depan" required>
+          <small id="first_name" class="form-text text-muted">Masukan Nama Depan</small>
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Alamat Email</label>
-          <input type="email" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email/Username">
-          <small id="emailHelp" class="form-text text-muted">Masukan Alamat E-mail</small>
+          <label for="last_name">Nama Belakang</label>
+          <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Nama Belakang" required>
+          <small id="last_name" class="form-text text-muted">Masukan Nama Belakang</small>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" name="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordHelp" placeholder="Password">
-          <small id="passwordHelp" class="form-text text-muted">Masukan password yang unik</small>
+          <label for="email">Alamat Email</label>
+          <input type="email" name="email" class="form-control" id="email" placeholder="Email" required> 
+          <small id="email" class="form-text text-muted">Masukan Alamat E-mail</small>
         </div>
-        <button type="submit" class="btn btn-success">Register</button>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+          <small id="password" class="form-text text-muted">Masukan password yang unik</small>
+        </div>
+        <div class="form-group">
+          <label for="user_address">Alamat</label>
+          <textarea name="user_address" class="form-control" id="user_address" placeholder="Alamat" required></textarea>
+          <small id="user_address" class="form-text text-muted">Masukan Alamat</small>
+        </div>
+        <div class="form-group">
+          <label for="user_city">Kota</label>
+          <input type="text" name="user_city" class="form-control" id="user_city" placeholder="Kota" required>
+          <small id="user_city" class="form-text text-muted">Masukan Nama Kota</small>
+        </div>
+        <!-- User Sex -->
+        <div class="form-group">
+          <label for="user_sex">Jenis Kelamin</label>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="user_sex" id="M" value="M" checked required>
+                <label class="form-check-label" for="user_sex">
+                  Laki-Laki
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="user_sex" id="F" value="F" required>
+                <label class="form-check-label" for="user_sex">
+                  Perempuan
+                </label>
+              </div>
+            </div>
+          <small id="user_sex" class="form-text text-muted">Pilih Jenis Kelamin</small>
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">
+              Agree to terms and conditions
+            </label>
+          </div>
+        </div>
+        <button type="submit" name="submit" class="btn btn-success">Register</button>
       </form>
     </div>
 <!-- footer -->
