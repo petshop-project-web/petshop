@@ -1,7 +1,29 @@
 <?php
 
+require 'function.php';
 //if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
 if(session_id() == '' || !isset($_SESSION)){session_start();}
+
+if( isset($_POST["login"]) ){
+  
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+
+  $result = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
+
+  // cek username
+  if( mysqli_num_rows($result) === 1 ){
+    // cek password
+    $row = mysqli_fetch_assoc($result);
+    if( password_verify($password, $row["password"]) ){
+      header("Location: index.php");
+      exit;
+    }
+  }
+
+  $error = true;
+
+}
 
 ?>
 
@@ -71,18 +93,28 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
       <div class="row">
         <h2>Login</h2>
       </div>
-      <form>
+
+      <?php if ( isset($error) ){
+        echo "
+          <script>
+              alert('Email atau Password Salah');
+              document.location.href='login.php';
+          </script>
+      ";
+      }?>
+
+      <form action="" method="post">
         <div class="form-group">
-          <label for="exampleInputEmail1">Alamat Email</label>
-          <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email/Username">
-          <small id="emailHelp" class="form-text text-muted">Masukan Alamat Email</small>
+          <label for="email">Alamat Email</label>
+          <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+          <small id="email" class="form-text text-muted">Masukan Alamat Email</small>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <label for="password">Password</label>
+          <input type="password" name="password" class="form-control" id="password" placeholder="Password">
         </div>
           <small class="form-text text-muted text-decs">Belum punya aku register <a href="register.php">disini</a> </small>
-        <button type="submit" class="btn btn-success">Login</button>
+        <button type="submit" name="login" class="btn btn-success">Login</button>
       </form>
     </div>
 <!-- footer -->

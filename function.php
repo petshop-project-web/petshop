@@ -19,10 +19,40 @@ function register($data){
     $last_name = htmlspecialchars($data["last_name"]);
     $user_address = htmlspecialchars($data["user_address"]);
     $user_city = htmlspecialchars($data["user_city"]);
-    $email = htmlspecialchars($data["email"]);
-    $password = htmlspecialchars($data["password"]);
+    $email = strtolower(stripslashes($data["email"]));
+    $password = mysqli_real_escape_string($conn, $data["password"]);
+    $password2 = mysqli_real_escape_string($conn, $data["password2"]);
     $user_sex = htmlspecialchars($data["user_sex"]);
 
+    //cek konfirmasi password
+    if($password !== $password2){
+        echo "
+            <script>
+                alert('Konfirmasi Password Tidak Sesuai');
+                document.location.href='register.php';
+            </script>
+        ";
+
+        return false;
+    }
+
+    // cek username
+    $result = mysqli_query($conn, "SELECT email FROM users WHERE email = '$email'");
+    
+    if( mysqli_fetch_assoc($result) ){
+        echo "
+            <script>
+                alert('email sudah terdaftar!');
+                document.location.href='register.php';
+            </script>
+        ";
+        return false;
+    }
+
+    // enkripsi password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    // tambahkan data baru ke database
     $query = "INSERT INTO users VALUES
                 ('','$first_name','$last_name','$user_address','$user_city','$email','$password',
                 DEFAULT,'$user_sex',NOW())";

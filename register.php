@@ -3,7 +3,7 @@ require 'function.php';
 //if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
 /* if(session_id() == '' || !isset($_SESSION)){session_start();} */
 
-if( isset($_POST["submit"]) ){
+if( isset($_POST["register"]) ){
   if( register($_POST) > 0 ){
       echo "
           <script>
@@ -12,12 +12,7 @@ if( isset($_POST["submit"]) ){
           </script>
       ";
   } else {
-      echo "
-          <script>
-              alert('Mohon Daftar Ulang');
-              document.location.href='register.php';
-          </script>
-      ";
+      echo mysqli_error($conn);
   }
 }
 ?>
@@ -112,6 +107,11 @@ if( isset($_POST["submit"]) ){
           <small id="password" class="form-text text-muted">Masukan password yang unik</small>
         </div>
         <div class="form-group">
+          <label for="password2">Konfirmasi Password</label>
+          <input type="password" name="password2" class="form-control" id="password2" placeholder="Konfirmasi Password" required>
+          <small id="password2" class="form-text text-muted">Masukan Konfirmasi password</small>
+        </div>
+        <div class="form-group">
           <label for="user_address">Alamat</label>
           <textarea name="user_address" class="form-control" id="user_address" placeholder="Alamat" required></textarea>
           <small id="user_address" class="form-text text-muted">Masukan Alamat</small>
@@ -148,7 +148,7 @@ if( isset($_POST["submit"]) ){
             </label>
           </div>
         </div>
-        <button type="submit" name="submit" class="btn btn-success">Register</button>
+        <button type="submit" name="register" class="btn btn-success">Register</button>
       </form>
     </div>
 <!-- footer -->
