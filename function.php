@@ -101,6 +101,40 @@ function tambah($data){
     return mysqli_affected_rows($conn);
 }
 
+function ubah($data){
+    global $conn;
+    
+    $productid = $data["productid"];
+    $product_code = htmlspecialchars($data["product_code"]);
+    $product_desc = htmlspecialchars($data["product_desc"]);
+    $qty_product = htmlspecialchars($data["qty_product"]);
+    $price_product = htmlspecialchars($data["price_product"]);
+    $product_name = htmlspecialchars($data["product_name"]);
+    $product_type = htmlspecialchars($data["product_type"]);
+    $product_rating = htmlspecialchars($data["product_rating"]);
+    $gambarLama = htmlspecialchars($data["gambarLama"]);
+
+    // cek user pilih gambar baru atau tidak
+    if( $_FILES['product_img_name']['error'] === 4 ){
+        $product_img_name = $gambarLama;
+    } else {
+        $product_img_name = upload();
+    }
+
+    $query = "UPDATE products SET
+            product_code = '$product_code',
+            product_desc = '$product_desc',
+            qty_product = '$qty_product',
+            price_product = '$price_product',
+            product_name = '$product_name',
+            product_type = '$product_type',
+            product_rating = '$product_rating',
+            WHERE productid = $productid
+            ";
+
+    return mysqli_affected_rows($conn);
+}
+
 function upload(){
 
     $namaFile = $_FILES['product_img_name']['name'];
