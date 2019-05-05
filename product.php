@@ -4,27 +4,19 @@ require 'function.php';
 
 session_start();
 
-// cek cookie
-if( isset($_COOKIE['id']) && isset($_COOKIE['key']) ){
-  $id = $_COOKIE['id'];
-  $key = $_COOKIE['key'];
-
-  // ambil email berdasarkan id
-  $result = mysqli_query($conn, "SELECT email FROM users WHERE user_id = $id");
-  $row = mysqli_fetch_assoc($result);
-
-  // cek cookie dan email
-  if( $key === hash('sha256', $row['email']) ){
-    $_SESSION['login'] = true;
-  }
-}
-
 if( !isset($_SESSION["login"])){
   header("Location: index.php");
   exit;
 }
 
-$products = query("SELECT * FROM products");
+// pagination konfiguration
+$jumlahDataPerHalaman = 9;
+$jumlahData = count(query("SELECT * FROM products"));
+$jumlahHalaman = ceil($jumlahData/$jumlahDataPerHalaman);
+$halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+$products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman");
 
 ?>
 
@@ -129,6 +121,33 @@ $products = query("SELECT * FROM products");
         </div>
       </div>
     </div>
+
+<!-- Pagination -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <?php if($halamanAktif > 1) : ?>
+        <li class="page-item">
+          <a class="page-link" href="?halaman=<?= $halamanAktif - 1; ?>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <?php endif; ?>
+          <?php for( $i = 1; $i <= $jumlahHalaman; $i++) : ?>
+            <?php if($i == $halamanAktif): ?>
+              <li class="page-item font-weight-bold"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+            <?php else: ?>
+              <li class="page-item"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+            <?php endif; ?>
+          <?php endfor; ?>
+          <?php if($halamanAktif < $jumlahHalaman) : ?>
+          <li class="page-item">
+          <a class="page-link" href="?halaman=<?= $halamanAktif + 1; ?>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <?php endif; ?>
+      </ul>
+    </nav>
 
     <footer>
       <div class="container">

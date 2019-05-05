@@ -41,8 +41,8 @@ if( isset($_POST["login"]) ){
       // cek rememeber me
       if( isset($_POST["rememberme"]) ){
         // buat cookie
-        setcookie('id', $row['user_id'], time() + 120);
-        setcookie('key', hash('sha256', $row['email']), time() + 120);
+        setcookie('id', $row['user_id'], time() + 1800);
+        setcookie('key', hash('sha256', $row['email']), time() + 1800);
       }
 
       header("Location: product.php");
