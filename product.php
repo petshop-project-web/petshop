@@ -2,8 +2,13 @@
 
 require 'function.php';
 
+session_start();
 //if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-if(session_id() == '' || !isset($_SESSION)){session_start();}
+if( !isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
 $products = query("SELECT * FROM products");
 
 ?>
@@ -36,7 +41,7 @@ $products = query("SELECT * FROM products");
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="product.php">
             <img class="brand" src="img/logotext.png" alt="logo">
           </a>
           <li class="nav-item">
@@ -64,7 +69,7 @@ $products = query("SELECT * FROM products");
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Login</a>
-                <a class="dropdown-item" href="#">Register</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
               </div>
             </li>
           </ul>
@@ -80,26 +85,32 @@ $products = query("SELECT * FROM products");
             <img src="img/logo.png" alt="">
           </a>
         </center>
-        <a class="scrol-down" href="#product"><i class="fas fa-arrow-alt-circle-down fa-3x"></i></a>
+        <a class="scrollTo" href="#product">
+          <i class="fas fa-arrow-alt-circle-down fa-3x"></i>
+        </a>
       </div>
     </div>
 
     <!-- content -->
-    <div class="content">
+    <div class="content" id="product">
       <div class="container">
         <div class="row">
-        <?php foreach($products as $product) : ?>
+          <?php foreach($products as $product): ?>
           <div class="col-sm-4">
             <div class="card product" style="width: 18rem;">
-              <img src="img/products/<?= $product["product_img_name"]?>" class="lazy-load" height="200px" alt="gambar rusak">
+              <img src="img/products/<?= $product["product_img_name"]?>" class="lazy-load" height="200px" alt="<?= $product["product_code"]?>">
               <div class="card-body">
+                <?php for ($i=0; $i < $product["product_rating"]; $i++) { ?>
+                  <span class="fa fa-star checked"></span>
+                <?php }?>
                 <h5 class="card-title"><?= $product["product_name"]?></h5>
+                <p class="price">Rp<?= $product["price_product"]?>,-</p>
                 <p class="card-text"><?= $product["product_desc"]?></p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="#" class="btn btn-secondary">ADD TO CART</a>
               </div>
             </div>
           </div>
-        <?php endforeach; ?>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>

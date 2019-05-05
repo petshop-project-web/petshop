@@ -8,7 +8,7 @@ if( isset($_POST["register"]) ){
       echo "
           <script>
               alert('Selamat Datang di Dunia Hewan');
-              document.location.href='index.php';
+              document.location.href='login.php';
           </script>
       ";
   } else {

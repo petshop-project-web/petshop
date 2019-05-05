@@ -1,8 +1,8 @@
 <?php
 
 require 'function.php';
-//if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-if(session_id() == '' || !isset($_SESSION)){session_start();}
+/* //if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+if(session_id() == '' || !isset($_SESSION)){session_start();} */
 $products = query("SELECT * FROM products");
 
 ?>
@@ -107,7 +107,6 @@ $products = query("SELECT * FROM products");
           </div>
           <?php endforeach; ?>
         </div>
-        <img src="img/<?php echo $data['id'] ?>" alt="">
       </div>
     </div>
 
