@@ -156,8 +156,7 @@ if( isset($_POST["search"]) ){
           <h1 class="h2">Customers</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-success">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-success">Export</button>
+              <a href="../cetakcustomer.php" target="_blank"><button type="button" class="btn  btn-outline-success mt-1">Export</button></a>
             </div>
             <div class="btn-group mr-2">
                 <form class="form-inline my-2 my-lg-1" action="" method="post">

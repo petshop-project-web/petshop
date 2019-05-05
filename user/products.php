@@ -157,7 +157,7 @@ if( isset($_POST["search"]) ){
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <a href="tambah.php" ><button type="button" class="btn btn-outline-success mr-2 mt-1">Tambah Data</button></a>
-              <a href="tambah.php" ><button type="button" class="btn  btn-outline-success mt-1">Export</button></a>
+              <a href="../cetak.php" target="_blank"><button type="button" class="btn  btn-outline-success mt-1">Export</button></a>
             </div>
             <div class="btn-group mr-2">
                 <form class="form-inline my-2 my-lg-1" action="" method="post">
