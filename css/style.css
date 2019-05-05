@@ -55,6 +55,10 @@ ul .navbar-brand {
   height: 550px;
 }
 
+.card-link {
+  color: black;
+}
+
 .big-brand a img {
   width: 200px;
   margin: 100px auto;

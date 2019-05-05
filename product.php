@@ -18,6 +18,11 @@ $awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
 
 $products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman");
 
+// tombol cari
+if( isset($_POST["search"]) ){
+  $products = cari($_POST["keyword"]);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +57,7 @@ $products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman
             <img class="brand" src="img/logotext.png" alt="logo">
           </a>
           <li class="nav-item">
-            <a class="nav-link" href="#">Product</a>
+            <a class="nav-link" href="#product">Product</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Service</a>
@@ -62,8 +67,8 @@ $products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-1">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+          <input class="form-control mr-sm-2" type="search" name="keyword" id="keyword" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search" id="search"><i class="fas fa-search"></i></button>
         </form>
         <div class="right-navbar">
           <ul class="navbar-nav mr-auto">
@@ -75,7 +80,7 @@ $products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman
                 <i class="fas fa-user"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Login</a>
+                <a class="dropdown-item" href="#">Profile</a>
                 <a class="dropdown-item" href="logout.php">Logout</a>
               </div>
             </li>

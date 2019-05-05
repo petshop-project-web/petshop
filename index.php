@@ -33,6 +33,11 @@ $awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
 
 $products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman");
 
+// tombol cari
+if( isset($_POST["search"]) ){
+  $products = cari($_POST["keyword"]);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -75,9 +80,9 @@ $products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman
             <a class="nav-link" href="#location">Location</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-1">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search fa-1x"></i></button>
+        <form class="form-inline my-2 my-lg-1" action="" method="post">
+          <input class="form-control mr-sm-2" type="search" name="keyword" id="keyword" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search" id="search"><i class="fas fa-search"></i></button>
         </form>
         <div class="right-navbar">
           <ul class="navbar-nav mr-auto">
@@ -126,7 +131,9 @@ $products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman
                 <?php for ($i=0; $i < $product["product_rating"]; $i++) { ?>
                   <span class="fa fa-star checked"></span>
                 <?php }?>
-                <h5 class="card-title"><?= $product["product_name"]?></h5>
+                <h5 class="card-title">
+                  <a href="detail_product.php?id=<?= $product["user_id"] ?>" class="card-link"><?= $product["product_name"]?></a>
+                </h5>
                 <p class="price">Rp<?= $product["price_product"]?>,-</p>
                 <p class="card-text"><?= $product["product_desc"]?></p>
                 <a href="#" class="btn btn-secondary">ADD TO CART</a>

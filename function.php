@@ -62,4 +62,10 @@ function register($data){
     return mysqli_affected_rows($conn);
 }
 
+function cari($keyword){
+    $query = "SELECT * FROM products WHERE product_name LIKE '$keyword%'";
+
+    return query($query);
+}
+
 ?>

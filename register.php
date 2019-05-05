@@ -143,9 +143,33 @@ if( isset($_POST["register"]) ){
         <div class="form-group">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-            <label class="form-check-label" for="invalidCheck">
-              Agree to terms and conditions
-            </label>
+            <!-- Button trigger modal -->
+            <span>I agree to the </span><a href="" data-toggle="modal" data-target="#exampleModalScrollable">terms of service</a>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Terms of Service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sit amet iaculis metus, euismod finibus erat. Duis porttitor semper ex ac blandit. Aenean accumsan nisi eu massa malesuada porttitor. Sed blandit dolor nunc, ut sagittis quam aliquam et. Praesent rutrum quam in elit blandit molestie. Proin ut ante sit amet odio malesuada fermentum ut feugiat nulla. Morbi suscipit leo nibh, sed convallis libero rhoncus quis. Integer dictum consequat nibh quis efficitur. Suspendisse tristique metus id lacinia facilisis. Nulla faucibus sem sed dui rhoncus, quis posuere eros tincidunt. Nullam eros urna, volutpat vitae urna sed, consectetur elementum lacus. Aliquam volutpat bibendum felis non elementum. Duis varius justo in nulla fringilla, eu tristique magna hendrerit. Nam a ornare sem, in dapibus velit.
+                      Nunc porta ipsum blandit, imperdiet orci id, molestie eros. Vestibulum elementum vitae turpis ut viverra. Mauris scelerisque nisi a metus tristique consequat. Ut sit amet vulputate tellus, eu varius velit. Ut tincidunt auctor lectus. Curabitur mauris ipsum, mollis vitae volutpat non, posuere ac nulla. Suspendisse potenti. Sed vitae vestibulum arcu. Integer ac rutrum nibh, eu imperdiet eros.
+                      Fusce tempus nunc sit amet arcu dignissim, quis laoreet dolor placerat. In pretium, velit ac euismod mattis, justo magna tincidunt magna, nec tempus eros eros ac lectus. Ut tincidunt, sapien at feugiat malesuada, mi orci accumsan erat, in tincidunt tortor nunc et tellus. Integer quis ligula convallis, rutrum tellus nec, lacinia sem. Quisque imperdiet eros eget erat condimentum elementum. Suspendisse potenti. Etiam imperdiet nisi nec nulla molestie elementum vitae luctus erat. Quisque tristique ultricies nunc, non suscipit velit mattis vitae. Etiam pellentesque suscipit justo. Donec elementum est vitae arcu malesuada, ac consectetur nibh mollis. Fusce a quam quis lectus aliquet rhoncus et nec risus. Vivamus accumsan augue sed eros consequat, ac feugiat odio consequat. Donec posuere at libero eu lacinia. In hac habitasse platea dictumst. Maecenas scelerisque gravida vulputate. Nunc ut scelerisque lacus, iaculis auctor felis.
+                      Cras tincidunt diam ut pellentesque convallis. Nullam nec placerat dui. Pellentesque vehicula elit in risus suscipit, at maximus risus ullamcorper. Nunc id libero sed orci pharetra tempus sit amet sed magna. Maecenas fermentum, magna eu imperdiet vehicula, nibh urna euismod sem, quis sollicitudin dui nunc ultrices metus. Nulla vel erat et lorem lobortis suscipit at ac est. Maecenas semper dictum ex, id ornare augue varius in. Nulla dapibus, purus at lobortis aliquam, nibh augue commodo felis, sit amet viverra enim diam eu nibh. Fusce rutrum interdum dolor a porta. Cras ultricies scelerisque lectus vel laoreet. Ut bibendum ullamcorper pretium. Morbi commodo elit vitae nulla gravida, eget iaculis orci feugiat. Curabitur semper massa velit, eu dapibus erat dapibus sed. Quisque dapibus convallis enim, consectetur sodales ante euismod eu.
+                      Etiam cursus elementum odio eget laoreet. Morbi ornare pharetra nunc maximus blandit. Praesent tincidunt augue et metus iaculis, ut condimentum turpis blandit. Sed sit amet euismod lorem, ac varius lorem. Maecenas laoreet lacinia elit, et porttitor mauris laoreet eu. Integer condimentum eget quam consectetur sollicitudin. Aenean ac dui massa. Curabitur eget dui arcu. Nulla dictum tincidunt ante, vel lacinia risus lacinia in. Vivamus placerat justo erat, a molestie velit cursus molestie. Nam urna arcu, rutrum ut auctor eu, fringilla et nibh.
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <button type="submit" name="register" class="btn btn-success">Register</button>
