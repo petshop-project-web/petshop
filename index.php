@@ -152,19 +152,19 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
       <div class="container">
           <div class="row">
             <div class="col-md-4 mb-5">
-              <h2>INFORMATION</h2>
+              <h3>INFORMATIONS</h3>
               <br><a href="#">About Us</a>
               <br><a href="#">Contact Us</a>
               <br><a href="#">Find Us</a>
             </div>
             <div class="col-md-4 mb-5">
-              <h2>Contact Us</h2>
+              <h3>CONTACT US</h3>
               <br><a href="#">Jl. Babarsari no 24, Depok</a>
               <br><a href="#">082133882546</a>
               <br><a href="#">Line : @petshop</a>
             </div>
             <div class="col-md-4 mb-5">
-              <h2>Newsteller</h2>
+              <h3>NEWSTELLER</h3>
               <br>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.
               <br><input type="email" class="input-subscribe" placeholder="Subscribe Newsteller.."   name="" value=""><button type="submit" class="btn-subscribe" name="button">SUBSCRIBE</button>
             </div>

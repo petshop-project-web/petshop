@@ -3,7 +3,7 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto:300i', sans-serif;
 }
 html {
   scroll-behavior: smooth;
@@ -99,6 +99,9 @@ footer a:hover {
   color: rgb(47, 47, 47);
   text-decoration: none;
 }
+footer h3 {
+  line-height: 0.5;
+}
 .input-subscribe{
   padding: 5px 10px;
   width: 220px;
@@ -107,10 +110,7 @@ footer a:hover {
   background-color: rgb(37, 37, 37);
   color: rgb(221, 221, 221);
   border: none;
-  padding:7px 20px;
-}
-.btn-subscribe:hover {
-
+  padding:7px 17px;
 }
 .copyright {
   text-align: center;
@@ -119,6 +119,7 @@ footer a:hover {
   margin: auto;
   padding: 15px 0;
 }
+
 /* login */
 .login , .register{
   margin: 80px auto;
