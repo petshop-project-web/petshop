@@ -1,7 +1,17 @@
 <?php
 
-//if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-if(session_id() == '' || !isset($_SESSION)){session_start();}
+require '../function.php';
+
+session_start();
+
+if( !isset($_SESSION["login"]) ){
+  header("Location: ../index.php");
+  exit;
+}
+if( $_SESSION["user_type"] != "admin" ){
+  header("Location: ../index.php");
+  exit;
+}
 
 ?>
 
@@ -28,7 +38,7 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
         <div class="sidebar-sticky">
           <div class="admin-profile">
             <div class="admin-image">
-              <img src="img/admin.png" alt="">
+              <img src="img/logo.png" alt="">
             </div>
             <div class="admin-name">
               <h2>Admin</h2>
@@ -135,7 +145,7 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
               <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
               <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
             </div>
-            <a href="logout.php" class="btn btn-success">
+            <a href="../logout.php" class="btn btn-success">
               <i class="fas fa-sign-out-alt"></i>Logout
             </a>
           </div>

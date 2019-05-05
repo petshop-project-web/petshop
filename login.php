@@ -34,7 +34,9 @@ if( isset($_POST["login"]) ){
   if( mysqli_num_rows($result) === 1 ){
     // cek password
     $row = mysqli_fetch_assoc($result);
+
     if( password_verify($password, $row["password"]) ){
+
       // set session
       $_SESSION["login"] = true;
 
@@ -45,9 +47,19 @@ if( isset($_POST["login"]) ){
         setcookie('key', hash('sha256', $row['email']), time() + 1800);
       }
 
-      header("Location: product.php");
-      exit;
+      // cek admin atau bukan
+      if( $row['user_type']=="admin" ){
+
+        $_SESSION['user_type'] = "admin";
+        header("Location: user/index.php");
+        exit;
+      } else {
+        header("Location: product.php");
+        exit;
+      }
+
     }
+
   }
 
   $error = true;

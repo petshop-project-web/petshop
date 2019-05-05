@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Bulan Mei 2019 pada 15.50
+-- Waktu pembuatan: 05 Bulan Mei 2019 pada 13.45
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.1
 
@@ -107,23 +107,24 @@ CREATE TABLE `products` (
   `qty_product` int(11) NOT NULL,
   `price_product` float NOT NULL,
   `product_name` varchar(60) NOT NULL,
-  `product_type` varchar(30) DEFAULT 'pet'
+  `product_type` varchar(30) DEFAULT 'pet',
+  `product_rating` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `products`
 --
 
-INSERT INTO `products` (`productid`, `product_code`, `product_desc`, `product_img_name`, `qty_product`, `price_product`, `product_name`, `product_type`) VALUES
-(1, 'WEB1', 'Ini adalah anjing cihuahua yang wah', 'chihuahuawah.jpg', 1, 9000000, 'Cihuahua Wah', 'pet'),
-(2, 'WEB2', 'Makanan kucing terbaik whiskas 40gr', 'whiskas.jpg', 50, 40000, 'Whiskas 40gr', 'food'),
-(3, 'WEB3', 'Ini makanan anjing terbaik', 'dogfood.jpg', 100, 120000, 'Dog Food', 'food'),
-(4, 'WEB4', 'Mainan landak Terbaik', 'landaktoy.jpg', 20, 100000, 'Landak Roll', 'toy'),
-(5, 'WEB5', 'Aquarium terbaik dari atlantis', 'aquarium.jgp', 5, 50000000, 'Aquarium Aquaman', 'place'),
-(6, 'WEB6', 'Decor Untuk Kamar Kucing', 'decorcat.jpg', 15, 340000, 'Decor Cat Room', 'acessoris'),
-(7, 'WEB7', 'Mainan Untuk Anjing Jinak Kalo Galak Jangan Beli', 'jinak.jpg', 30, 10230000, 'Toy Dog', 'toy'),
-(8, 'WEB8', 'Baju Untuk Kucing Eksclusif', 'bajukucing.jpg', 100, 60000000, 'Baju Kucing', 'clothes'),
-(9, 'WEB9', 'Baju Untuk Kucing Miskin', 'bajukucingmis.jpg', 200, 5999, 'Baju Kucing Miskin', 'clothes');
+INSERT INTO `products` (`productid`, `product_code`, `product_desc`, `product_img_name`, `qty_product`, `price_product`, `product_name`, `product_type`, `product_rating`) VALUES
+(1, 'WEB1', 'Ini adalah anjing cihuahua yang wah', 'chihuahuawah.jpg', 1, 9000000, 'Cihuahua Wah', 'pet', 4),
+(2, 'WEB2', 'Makanan kucing terbaik whiskas 40gr', 'whiskas.jpg', 50, 40000, 'Whiskas 40gr', 'food', 3),
+(3, 'WEB3', 'Ini makanan anjing terbaik', 'dogfood.jpg', 100, 120000, 'Dog Food', 'food', 5),
+(4, 'WEB4', 'Mainan landak Terbaik', 'landaktoy.jpg', 20, 100000, 'Landak Roll', 'toy', 2),
+(5, 'WEB5', 'Aquarium terbaik dari atlantis', 'aquarium1.jpg', 5, 50000000, 'Aquarium Aquaman', 'place', 3),
+(6, 'WEB6', 'Decor Untuk Kamar Kucing', 'decorcat.jpg', 15, 340000, 'Decor Cat Room', 'acessoris', 5),
+(7, 'WEB7', 'Mainan Untuk Anjing Jinak Kalo Galak Jangan Beli', 'jinak.jpg', 30, 10230000, 'Toy Dog', 'toy', 2),
+(8, 'WEB8', 'Baju Untuk Kucing Eksclusif', 'bajukucing.jpg', 100, 60000000, 'Baju Kucing', 'clothes', 5),
+(9, 'WEB9', 'Baju Untuk Kucing Miskin', 'bajukucingmis.jpg', 200, 5999, 'Baju Kucing Miskin', 'clothes', 1);
 
 -- --------------------------------------------------------
 
@@ -158,8 +159,8 @@ CREATE TABLE `users` (
   `last_name` varchar(60) NOT NULL,
   `user_address` varchar(255) NOT NULL,
   `user_city` varchar(30) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `user_type` varchar(20) NOT NULL DEFAULT 'user',
   `user_sex` enum('M','F') NOT NULL,
   `date_entered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -174,7 +175,11 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `user_address`, `user
 (2, 'Yusuf', 'Adi', 'Jl. Tentara Rakyat Mataram', 'Yogyakarta', 'muhammadyusufadip.1999@gmail.com', '1235', 'user', 'M', '2019-05-04 06:01:59'),
 (3, 'Kiky', 'Hidayat', 'Jl. Mana Aja Masuk', 'Tegal', 'kikisenapanawan@gmail.com', '1236', 'user', 'M', '2019-05-04 06:01:59'),
 (4, 'Anglilasandyakala', 'Gandhari P.', 'Jl. Godean', 'Cilacap', 'anglilasandyakala9@gmail.com', '1237', 'user', 'F', '2019-05-04 06:01:59'),
-(6, 'Rizky', 'Mahfudin', 'Jl. Semarang Baru', 'Semarang', 'akuadmin@gmail.com', '12345', 'admin', 'M', '2019-05-04 06:07:31');
+(6, 'Rizky', 'Mahfudin', 'Jl. Semarang Baru', 'Semarang', 'akuadmin@gmail.com', '12345', 'admin', 'M', '2019-05-04 06:07:31'),
+(7, 'aku', 'aku', 'aku', 'aku', 'aku@gmail.com', 'aku', 'user', 'M', '2019-05-04 19:23:55'),
+(8, 'kamu', 'kamu', 'kamu', 'kamu', 'kamu@gmail.com', '$2y$10$4yCM7RuFh2LEsf6O7Pf5kOFqVcPkoAALovuXn8.HyjW.pmBsPB4YW', 'user', 'F', '2019-05-04 20:43:55'),
+(12, 'dikamu', 'dikamu', 'dikamu', 'dikamu', 'dikamu@gmail.com', '$2y$10$4QIq5T4myd5LVY/nqwWZvu4BEI9LKo4nd2R6mcY5gS5U4iSZh/4oi', 'user', 'M', '2019-05-04 20:53:28'),
+(13, 'admin', 'admin', 'Jt.1/759 Jl. Tentara Rakyat Mataram Kec. Jetis Kel. Bumijo', 'Yogyakarta', 'admin@gmail.com', '$2y$10$1E2rbSpUXZJutIyF5lISEuLHabqE9qm6vuCjDo3b9h4PorpahNt4G', 'admin', 'M', '2019-05-05 10:44:13');
 
 --
 -- Indexes for dumped tables
@@ -258,7 +263,7 @@ ALTER TABLE `shippers`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
