@@ -1,7 +1,70 @@
 <?php
 
-//if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-if(session_id() == '' || !isset($_SESSION)){session_start();}
+require 'function.php';
+session_start();
+
+// cek cookie
+if( isset($_COOKIE['id']) && isset($_COOKIE['key']) ){
+  $id = $_COOKIE['id'];
+  $key = $_COOKIE['key'];
+
+  // ambil email berdasarkan id
+  $result = mysqli_query($conn, "SELECT email FROM users WHERE user_id = $id");
+  $row = mysqli_fetch_assoc($result);
+
+  // cek cookie dan email
+  if( $key === hash('sha256', $row['email']) ){
+    $_SESSION['login'] = true;
+  }
+}
+
+if(isset($_SESSION["login"])){
+  header("Location: product.php");
+  exit;
+}
+
+if( isset($_POST["login"]) ){
+  
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+
+  $result = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
+
+  // cek email
+  if( mysqli_num_rows($result) === 1 ){
+    // cek password
+    $row = mysqli_fetch_assoc($result);
+
+    if( password_verify($password, $row["password"]) ){
+
+      // set session
+      $_SESSION["login"] = true;
+
+      // cek rememeber me
+      if( isset($_POST["rememberme"]) ){
+        // buat cookie
+        setcookie('id', $row['user_id'], time() + 1800);
+        setcookie('key', hash('sha256', $row['email']), time() + 1800);
+      }
+
+      // cek admin atau bukan
+      if( $row['user_type']=="admin" ){
+
+        $_SESSION['user_type'] = "admin";
+        header("Location: user/index.php");
+        exit;
+      } else {
+        header("Location: product.php");
+        exit;
+      }
+
+    }
+
+  }
+
+  $error = true;
+
+}
 
 ?>
 
@@ -71,18 +134,36 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
       <div class="row">
         <h2>Login</h2>
       </div>
-      <form>
+
+      <?php if ( isset($error) ){
+        echo "
+          <script>
+              alert('Email atau Password Salah');
+              document.location.href='login.php';
+          </script>
+      ";
+      }?>
+
+      <form action="" method="post">
         <div class="form-group">
-          <label for="exampleInputEmail1">Alamat Email</label>
-          <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email/Username">
-          <small id="emailHelp" class="form-text text-muted">Masukan Alamat Email</small>
+          <label for="email">Alamat Email</label>
+          <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+          <small id="email" class="form-text text-muted">Masukan Alamat Email</small>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <label for="password">Password</label>
+          <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="rememberme" id="rememberme">
+            <label class="form-check-label" for="rememberme">
+              remember me
+            </label>
+          </div>
         </div>
           <small class="form-text text-muted text-decs">Belum punya aku register <a href="register.php">disini</a> </small>
-        <button type="submit" class="btn btn-success">Login</button>
+        <button type="submit" name="login" class="btn btn-success">Login</button>
       </form>
     </div>
 <!-- footer -->

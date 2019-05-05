@@ -1,7 +1,27 @@
 <?php
 
-//if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-if(session_id() == '' || !isset($_SESSION)){session_start();}
+require 'function.php';
+
+session_start();
+
+if( !isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
+// pagination konfiguration
+$jumlahDataPerHalaman = 9;
+$jumlahData = count(query("SELECT * FROM products"));
+$jumlahHalaman = ceil($jumlahData/$jumlahDataPerHalaman);
+$halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+$products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman");
+
+// tombol cari
+if( isset($_POST["search"]) ){
+  $products = cari($_POST["keyword"]);
+}
 
 ?>
 
@@ -33,11 +53,11 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="product.php">
             <img class="brand" src="img/logotext.png" alt="logo">
           </a>
           <li class="nav-item">
-            <a class="nav-link" href="#">Product</a>
+            <a class="nav-link" href="#product">Product</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Service</a>
@@ -47,8 +67,8 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-1">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+          <input class="form-control mr-sm-2" type="search" name="keyword" id="keyword" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search" id="search"><i class="fas fa-search"></i></button>
         </form>
         <div class="right-navbar">
           <ul class="navbar-nav mr-auto">
@@ -60,8 +80,8 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
                 <i class="fas fa-user"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Login</a>
-                <a class="dropdown-item" href="#">Register</a>
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
               </div>
             </li>
           </ul>
@@ -77,67 +97,62 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
             <img src="img/logo.png" alt="">
           </a>
         </center>
-        <a class="scrol-down" href="#product"><i class="fas fa-arrow-alt-circle-down fa-3x"></i></a>
+        <a class="scrollTo" href="#product">
+          <i class="fas fa-arrow-alt-circle-down fa-3x"></i>
+        </a>
       </div>
     </div>
 
     <!-- content -->
-    <div class="content">
+    <div class="content" id="product">
       <div class="container">
         <div class="row">
-          <div class="col-md-3 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
+          <?php foreach($products as $product): ?>
+          <div class="col-sm-4">
+            <div class="card product" style="width: 18rem;">
+              <img src="img/products/<?= $product["product_img_name"]?>" class="lazy-load" height="200px" alt="<?= $product["product_code"]?>">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <?php for ($i=0; $i < $product["product_rating"]; $i++) { ?>
+                  <span class="fa fa-star checked"></span>
+                <?php }?>
+                <h5 class="card-title"><?= $product["product_name"]?></h5>
+                <p class="price">Rp<?= $product["price_product"]?>,-</p>
+                <p class="card-text"><?= $product["product_desc"]?></p>
+                <a href="#" class="btn btn-secondary">ADD TO CART</a>
               </div>
             </div>
           </div>
-          <div class="col-md-3 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 mr-2">
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
+
+<!-- Pagination -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <?php if($halamanAktif > 1) : ?>
+        <li class="page-item">
+          <a class="page-link" href="?halaman=<?= $halamanAktif - 1; ?>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <?php endif; ?>
+          <?php for( $i = 1; $i <= $jumlahHalaman; $i++) : ?>
+            <?php if($i == $halamanAktif): ?>
+              <li class="page-item font-weight-bold"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+            <?php else: ?>
+              <li class="page-item"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+            <?php endif; ?>
+          <?php endfor; ?>
+          <?php if($halamanAktif < $jumlahHalaman) : ?>
+          <li class="page-item">
+          <a class="page-link" href="?halaman=<?= $halamanAktif + 1; ?>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <?php endif; ?>
+      </ul>
+    </nav>
 
     <footer>
       <div class="container">

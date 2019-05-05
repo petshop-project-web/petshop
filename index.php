@@ -1,7 +1,42 @@
 <?php
 
-//if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-if(session_id() == '' || !isset($_SESSION)){session_start();}
+require 'function.php';
+
+session_start();
+
+// cek cookie
+if( isset($_COOKIE['id']) && isset($_COOKIE['key']) ){
+  $id = $_COOKIE['id'];
+  $key = $_COOKIE['key'];
+
+  // ambil email berdasarkan id
+  $result = mysqli_query($conn, "SELECT email FROM users WHERE user_id = $id");
+  $row = mysqli_fetch_assoc($result);
+
+  // cek cookie dan email
+  if( $key === hash('sha256', $row['email']) ){
+    $_SESSION['login'] = true;
+  }
+}
+
+if(isset($_SESSION["login"])){
+  header("Location: product.php");
+  exit;
+}
+
+// pagination konfiguration
+$jumlahDataPerHalaman = 9;
+$jumlahData = count(query("SELECT * FROM products"));
+$jumlahHalaman = ceil($jumlahData/$jumlahDataPerHalaman);
+$halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+$products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman");
+
+// tombol cari
+if( isset($_POST["search"]) ){
+  $products = cari($_POST["keyword"]);
+}
 
 ?>
 
@@ -65,9 +100,9 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
             <a class="nav-link" href="#location">Location</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-1">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search fa-1x"></i></button>
+        <form class="form-inline my-2 my-lg-1" action="" method="post">
+          <input class="form-control mr-sm-2" type="search" name="keyword" id="keyword" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search" id="search"><i class="fas fa-search"></i></button>
         </form>
         <div class="right-navbar">
           <ul class="navbar-nav mr-auto">
@@ -110,6 +145,7 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
         <h3>Products</h3>
 
         <div class="row">
+<<<<<<< HEAD
           <?php for ($i=0; $i < 5; $i++) {
             // code...
           ?>
@@ -133,6 +169,60 @@ if(session_id() == '' || !isset($_SESSION)){session_start();}
 <!-- Service -->
     <div class="container" id="service">
       <div class="jumbotron service">
+=======
+          <?php foreach($products as $product): ?>
+          <div class="col-sm-4">
+            <div class="card product" style="width: 18rem;">
+              <img src="img/products/<?= $product["product_img_name"]?>" class="lazy-load" height="200px" alt="<?= $product["product_code"]?>">
+              <div class="card-body">
+                <?php for ($i=0; $i < $product["product_rating"]; $i++) { ?>
+                  <span class="fa fa-star checked"></span>
+                <?php }?>
+                <h5 class="card-title">
+                  <a href="detail_product.php?id=<?= $product["user_id"] ?>" class="card-link"><?= $product["product_name"]?></a>
+                </h5>
+                <p class="price">Rp<?= $product["price_product"]?>,-</p>
+                <p class="card-text"><?= $product["product_desc"]?></p>
+                <a href="#" class="btn btn-secondary">ADD TO CART</a>
+              </div>
+            </div>
+          </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+
+<!-- Pagination -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <?php if($halamanAktif > 1) : ?>
+        <li class="page-item">
+          <a class="page-link" href="?halaman=<?= $halamanAktif - 1; ?>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <?php endif; ?>
+          <?php for( $i = 1; $i <= $jumlahHalaman; $i++) : ?>
+            <?php if($i == $halamanAktif): ?>
+              <li class="page-item font-weight-bold"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+            <?php else: ?>
+              <li class="page-item"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+            <?php endif; ?>
+          <?php endfor; ?>
+          <?php if($halamanAktif < $jumlahHalaman) : ?>
+          <li class="page-item">
+          <a class="page-link" href="?halaman=<?= $halamanAktif + 1; ?>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <?php endif; ?>
+      </ul>
+    </nav>
+
+<!-- Location -->
+    <div class="container" id="location">
+      <div class="jumbotron location">
+>>>>>>> 931282b6d24fc7faff0b0a7fba4d42fe62848203
         <h1 class="display-4">Our Service</h1>
         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
         <hr class="my-4">

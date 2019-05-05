@@ -13,6 +13,24 @@ if( $_SESSION["user_type"] != "admin" ){
   exit;
 }
 
+if( isset($_POST["tambah"]) ){
+        if( tambah($_POST) > 0 ){
+            echo "
+                <script>
+                    alert('Data Berhasil Ditambahkan!');
+                    document.location.href='tambah.php';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    alert('Data Gagal Ditambahkan!');
+                    document.location.href='tambah.php';
+                </script>
+            ";
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -139,25 +157,46 @@ if( $_SESSION["user_type"] != "admin" ){
         </div>
       </div>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
+          <h1 class="h2">Tambah Produk</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
             <a href="../logout.php" class="btn btn-success">
               <i class="fas fa-sign-out-alt"></i>Logout
             </a>
           </div>
         </div>
 
-        <div class="jumbotron">
-          <h1 class="display-4">Hello, world!</h1>
-          <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-          <hr class="my-4">
-          <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-          <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+<!-- FORM -->
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="product_code">KODE</label>
+          <input type="text" name="product_code" class="form-control" id="product_code" placeholder="Code" required>
         </div>
+        <div class="form-group">
+          <label for="product_name">NAMA</label>
+          <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+          <label for="qty_product">STOK</label>
+          <input type="text" name="qty_product" class="form-control" id="qty_product" placeholder="Stok" required>
+        </div>
+        <div class="form-group">
+          <label for="price_product">HARGA</label>
+          <input type="text" name="price_product" class="form-control" id="price_product" placeholder="Harga" required>
+        </div>
+        <div class="form-group">
+          <label for="product_type">Tipe</label>
+          <input type="text" name="product_type" class="form-control" id="product_type" placeholder="Tipe" required>
+        </div>
+        <div class="form-group">
+          <label for="product_img_name">Gambar</label>
+          <input type="file" name="product_img_name" class="form-control-file" id="product_img_name" placeholder="Tipe">
+        </div>
+        <div class="form-group">
+          <label for="product_desc">Deskripsi</label>
+          <textarea name="product_desc" class="form-control" id="product_desc" placeholder="Deskripsi"></textarea>
+        </div>
+        <button type="submit" name="tambah" class="btn btn-success">Register</button>
+    </form>
 
       </main>
     </div>
