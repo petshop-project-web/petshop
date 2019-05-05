@@ -18,7 +18,7 @@ if( isset($_COOKIE['id']) && isset($_COOKIE['key']) ){
     $_SESSION['login'] = true;
   }
 }
-
+ 
 if(isset($_SESSION["login"])){
   header("Location: product.php");
   exit;
