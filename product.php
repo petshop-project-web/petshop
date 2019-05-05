@@ -3,7 +3,22 @@
 require 'function.php';
 
 session_start();
-//if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+
+// cek cookie
+if( isset($_COOKIE['id']) && isset($_COOKIE['key']) ){
+  $id = $_COOKIE['id'];
+  $key = $_COOKIE['key'];
+
+  // ambil email berdasarkan id
+  $result = mysqli_query($conn, "SELECT email FROM users WHERE user_id = $id");
+  $row = mysqli_fetch_assoc($result);
+
+  // cek cookie dan email
+  if( $key === hash('sha256', $row['email']) ){
+    $_SESSION['login'] = true;
+  }
+}
+
 if( !isset($_SESSION["login"])){
   header("Location: index.php");
   exit;

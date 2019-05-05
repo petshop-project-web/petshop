@@ -2,7 +2,22 @@
 
 require 'function.php';
 session_start();
-//if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+
+// cek cookie
+if( isset($_COOKIE['id']) && isset($_COOKIE['key']) ){
+  $id = $_COOKIE['id'];
+  $key = $_COOKIE['key'];
+
+  // ambil email berdasarkan id
+  $result = mysqli_query($conn, "SELECT email FROM users WHERE user_id = $id");
+  $row = mysqli_fetch_assoc($result);
+
+  // cek cookie dan email
+  if( $key === hash('sha256', $row['email']) ){
+    $_SESSION['login'] = true;
+  }
+}
+
 if(isset($_SESSION["login"])){
   header("Location: product.php");
   exit;
@@ -15,13 +30,21 @@ if( isset($_POST["login"]) ){
 
   $result = mysqli_query($conn, "SELECT * FROM users WHERE email = '$email'");
 
-  // cek username
+  // cek email
   if( mysqli_num_rows($result) === 1 ){
     // cek password
     $row = mysqli_fetch_assoc($result);
     if( password_verify($password, $row["password"]) ){
       // set session
       $_SESSION["login"] = true;
+
+      // cek rememeber me
+      if( isset($_POST["rememberme"]) ){
+        // buat cookie
+        setcookie('id', $row['user_id'], time() + 120);
+        setcookie('key', hash('sha256', $row['email']), time() + 120);
+      }
+
       header("Location: product.php");
       exit;
     }
@@ -118,6 +141,14 @@ if( isset($_POST["login"]) ){
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="rememberme" id="rememberme">
+            <label class="form-check-label" for="rememberme">
+              remember me
+            </label>
+          </div>
         </div>
           <small class="form-text text-muted text-decs">Belum punya aku register <a href="register.php">disini</a> </small>
         <button type="submit" name="login" class="btn btn-success">Login</button>
