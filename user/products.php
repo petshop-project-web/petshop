@@ -200,7 +200,7 @@ if( isset($_POST["search"]) ){
             <td><?= $product["product_type"]; ?></td>
             <td><?= $product["product_rating"]; ?></td>
             <td><a href="ubah.php?productid=<?= $product["productid"]; ?>"><button class="btn btn-success">UBAH</button></a></td>
-            <td><a href=""><button class="btn btn-secondary">HAPUS</button></a></td>
+            <td><a href="hapus.php?productid=<?= $product["productid"]; ?>"><button class="btn btn-secondary">HAPUS</button></a></td>
             </tr>
             <?php $i+=1; ?>
             <?php endforeach; ?>

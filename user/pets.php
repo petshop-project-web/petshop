@@ -13,27 +13,19 @@ if( $_SESSION["user_type"] != "admin" ){
   exit;
 }
 
-$id = $_GET["productid"];
+// pagination konfiguration
+$jumlahDataPerHalaman = 6;
+$jumlahData = count(query("SELECT * FROM products WHERE product_type = 'pet'"));
+$jumlahHalaman = ceil($jumlahData/$jumlahDataPerHalaman);
+$halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
 
-$product = query("SELECT * FROM products WHERE productid = $id")[0];
+$products = query("SELECT * FROM products WHERE product_type = 'pet' LIMIT $awalData, $jumlahDataPerHalaman");
 
-if( isset($_POST["ubah"]) ){
-        if( ubah($_POST) > 0 ){
-            echo "
-                <script>
-                    alert('Data Berhasil Diubah!');
-                    document.location.href='products.php';
-                </script>
-            ";
-        } else {
-            echo "
-                <script>
-                    alert('Data Gagal Diubah!');
-                    document.location.href='products.php';
-                </script>
-            ";
-        }
-    }
+// tombol cari
+if( isset($_POST["search"]) ){
+  $products = cari($_POST["keyword"]);
+}
 
 ?>
 
@@ -161,53 +153,86 @@ if( isset($_POST["ubah"]) ){
         </div>
       </div>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Tambah Produk</h1>
+          <h1 class="h2">Products</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <a href="tambah.php" ><button type="button" class="btn btn-outline-success mr-2 mt-1">Tambah Data</button></a>
+              <a href="tambah.php" ><button type="button" class="btn  btn-outline-success mt-1">Export</button></a>
+            </div>
+            <div class="btn-group mr-2">
+                <form class="form-inline my-2 my-lg-1" action="" method="post">
+                <input class="form-control mr-sm-2" type="search" name="keyword" id="keyword" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search" id="search"><i class="fas fa-search"></i></button>
+            </form>
+            </div>
             <a href="../logout.php" class="btn btn-success">
               <i class="fas fa-sign-out-alt"></i>Logout
             </a>
           </div>
         </div>
 
-<!-- FORM -->
-    <form action="" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="productid" value="<?= $product["productid"]?>">
-        <input type="hidden" name="gambarLama" value="<?= $product["product_img_name"]?>">
-        <div class="form-group">
-          <label for="product_code">KODE</label>
-          <input type="text" name="product_code" class="form-control" id="product_code" placeholder="Code" value="<?= $product["product_code"]?>" required>
-        </div>
-        <div class="form-group">
-          <label for="product_name">NAMA</label>
-          <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Name" value="<?= $product["product_name"]?>" required>
-        </div>
-        <div class="form-group">
-          <label for="qty_product">STOK</label>
-          <input type="text" name="qty_product" class="form-control" id="qty_product" placeholder="Stok" value="<?= $product["qty_product"]?>" required>
-        </div>
-        <div class="form-group">
-          <label for="price_product">HARGA</label>
-          <input type="text" name="price_product" class="form-control" id="price_product" placeholder="Harga" value="<?= $product["price_product"]?>" required>
-        </div>
-        <div class="form-group">
-          <label for="product_type">Tipe</label>
-          <input type="text" name="product_type" class="form-control" id="product_type" placeholder="Tipe" value="<?= $product["product_type"]?>" required>
-        </div>
-        <div class="form-group">
-          <label for="product_img_name">Gambar</label>
-          <img src="../img/products/<?= $product["product_img_name"]; ?>" class="img-thumbnail" alt="">
-          <input type="file" name="product_img_name" class="form-control-file" id="product_img_name" placeholder="Tipe">
-        </div>
-        <div class="form-group">
-          <label for="product_rating">Rating</label>
-          <input type="text" name="product_rating" class="form-control" id="product_rating" placeholder="Tipe" value="<?= $product["product_rating"]?>" required>
-        </div>
-        <div class="form-group">
-          <label for="product_desc">Deskripsi</label>
-          <input type="text" name="product_desc" class="form-control" id="product_desc" placeholder="Tipe" value="<?= $product["product_desc"]?>" >
-        </div>
-        <button type="submit" name="ubah" class="btn btn-success">Ubah</button>
-    </form>
+        <table class="table table-hover">
+        <thead class="bg-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Code</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Stok</th>
+                <th scope="col">Keterangan</th>
+                <th scope="col">Tipe</th>
+                <th scope="col">Rating</th>
+                <th colspan=2 scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $i=1; ?>
+            <?php foreach($products as $product): ?>
+            <tr>
+            <th scope="row"><?= $i; ?></th>
+            <td><?= $product["product_code"]; ?></td>
+            <td><img src="../img/products/<?= $product["product_img_name"]; ?>" class="img-thumbnail" alt=""></td>
+            <td><?= $product["product_name"]; ?></td>
+            <td><?= $product["price_product"]; ?></td>
+            <td><?= $product["qty_product"]; ?></td>
+            <td><?= $product["product_desc"]; ?></td>
+            <td><?= $product["product_type"]; ?></td>
+            <td><?= $product["product_rating"]; ?></td>
+            <td><a href="ubah.php?productid=<?= $product["productid"]; ?>"><button class="btn btn-success">UBAH</button></a></td>
+            <td><a href="hapus.php?productid=<?= $product["productid"]; ?>"><button class="btn btn-secondary">HAPUS</button></a></td>
+            </tr>
+            <?php $i+=1; ?>
+            <?php endforeach; ?>
+        </tbody>
+        </table>
+
+<!-- Pagination -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <?php if($halamanAktif > 1) : ?>
+        <li class="page-item">
+          <a class="page-link" href="?halaman=<?= $halamanAktif - 1; ?>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <?php endif; ?>
+          <?php for( $i = 1; $i <= $jumlahHalaman; $i++) : ?>
+            <?php if($i == $halamanAktif): ?>
+              <li class="page-item font-weight-bold"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+            <?php else: ?>
+              <li class="page-item"><a class="page-link" href="?halaman=<?= $i; ?>"><?= $i; ?></a></li>
+            <?php endif; ?>
+          <?php endfor; ?>
+          <?php if($halamanAktif < $jumlahHalaman) : ?>
+          <li class="page-item">
+          <a class="page-link" href="?halaman=<?= $halamanAktif + 1; ?>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <?php endif; ?>
+      </ul>
+    </nav>
 
       </main>
     </div>

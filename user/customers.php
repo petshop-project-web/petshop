@@ -15,7 +15,7 @@ if( $_SESSION["user_type"] != "admin" ){
 
 // pagination konfiguration
 $jumlahDataPerHalaman = 5;
-$jumlahData = count(query("SELECT * FROM products"));
+$jumlahData = count(query("SELECT * FROM users"));
 $jumlahHalaman = ceil($jumlahData/$jumlahDataPerHalaman);
 $halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
 $awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;

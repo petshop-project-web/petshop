@@ -74,6 +74,57 @@ function cariUser($keyword){
     return query($query);
 }
 
+function upload(){
+
+    $namaFile = $_FILES['product_img_name']['name'];
+    $ukuranFile = $_FILES['product_img_name']['size'];
+    $error = $_FILES['product_img_name']['error'];
+    $tmpName = $_FILES['product_img_name']['tmp_name'];
+
+    //cek apa tidak ada gambar yang diupload
+    if( $error === 4 ){
+        echo "
+                <script>
+                    alert('Pilih Gambar Terlebih Dahulu!');
+                </script>
+            ";
+        return false;
+    }
+
+    // cek gambar bener
+    $ekstensiGambarValid = ['jpg','jpeg','png','gif','wav','bmp'];
+    $ekstensiGambar = explode('.', $namaFile);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+    if( !in_array($ekstensiGambar, $ekstensiGambarValid) ){
+        echo "
+                <script>
+                    alert('Yang di upload tidak sesuai ekstensi');
+                </script>
+            ";
+        return false;
+    }
+
+    // cek ukuran 
+    if( $ukuranFile > 5000000 ){
+        echo "
+                <script>
+                    alert('size gambar terlalu besar');
+                </script>
+            ";
+        return false;
+    }
+
+    // gambar siap diupload
+    // generate nama gambar baru
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiGambar;
+
+    move_uploaded_file($tmpName, '../img/products/' . $namaFileBaru);
+
+    return $namaFileBaru;
+}
+
 function tambah($data){
     global $conn;
 
@@ -124,66 +175,23 @@ function ubah($data){
     $query = "UPDATE products SET
             product_code = '$product_code',
             product_desc = '$product_desc',
-            qty_product = '$qty_product',
-            price_product = '$price_product',
+            product_img_name = '$product_img_name',
+            qty_product = $qty_product,
+            price_product = $price_product,
             product_name = '$product_name',
             product_type = '$product_type',
-            product_rating = '$product_rating',
+            product_rating = $product_rating
             WHERE productid = $productid
             ";
+    mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
 }
 
-function upload(){
-
-    $namaFile = $_FILES['product_img_name']['name'];
-    $ukuranFile = $_FILES['product_img_name']['size'];
-    $error = $_FILES['product_img_name']['error'];
-    $tmpName = $_FILES['product_img_name']['tmp_name'];
-
-    //cek apa tidak ada gambar yang diupload
-    if( $error === 4 ){
-        echo "
-                <script>
-                    alert('Pilih Gambar Terlebih Dahulu!');
-                </script>
-            ";
-        return false;
-    }
-
-    // cek gambar bener
-    $ekstensiGambarValid = ['jpg','jpeg','png','gif','wav','bmp'];
-    $ekstensiGambar = explode('.', $namaFile);
-    $ekstensiGambar = strtolower(end($ekstensiGambar));
-    if( !in_array($ekstensiGambar, $ekstensiGambarValid) ){
-        echo "
-                <script>
-                    alert('Yang di upload tidak sesuai ekstensi');
-                </script>
-            ";
-        return false;
-    }
-
-    // cek ukuran 
-    if( $ukuranFile > 5000000 ){
-        echo "
-                <script>
-                    alert('size gambar terlalu besar');
-                </script>
-            ";
-        return false;
-    }
-
-    // gambar siap diupload
-    // generate nama gambar baru
-    $namaFileBaru = uniqid();
-    $namaFileBaru .= '.';
-    $namaFileBaru .= $ekstensiGambar;
-
-    move_uploaded_file($tmpName, '../img/products' . $namaFileBaru);
-
-    return $namaFileBaru;
+function hapus($id){
+    global $conn;
+    mysqli_query($conn, "DELETE FROM products WHERE productid = $id");
+    return mysqli_affected_rows($conn);
 }
 
 ?>
