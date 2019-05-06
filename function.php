@@ -69,7 +69,13 @@ function cari($keyword){
 }
 
 function cariUser($keyword){
-    $query = "SELECT * FROM users WHERE first_name LIKE '$keyword%'";
+    $query = "SELECT * FROM users WHERE first_name LIKE '$keyword%' OR last_name LIKE '$keyword%'";
+
+    return query($query);
+}
+
+function cariOrder($keyword){
+    $query = "SELECT * FROM orders WHERE email LIKE '$keyword%'";
 
     return query($query);
 }

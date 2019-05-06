@@ -13,19 +13,18 @@ if( $_SESSION["user_type"] != "admin" ){
   exit;
 }
 
+$id = $_GET["order_id"];
+
 // pagination konfiguration
 $jumlahDataPerHalaman = 6;
-$jumlahData = count(query("SELECT * FROM products"));
+$jumlahData = count(query("SELECT * FROM orderdetails"));
 $jumlahHalaman = ceil($jumlahData/$jumlahDataPerHalaman);
 $halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
 $awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
 
-$products = query("SELECT * FROM products LIMIT $awalData, $jumlahDataPerHalaman");
+$orders = query("SELECT * FROM orderdetails WHERE order_id = $id LIMIT $awalData, $jumlahDataPerHalaman");
 
-// tombol cari
-if( isset($_POST["search"]) ){
-  $products = cari($_POST["keyword"]);
-}
+
 
 ?>
 
@@ -153,11 +152,8 @@ if( isset($_POST["search"]) ){
         </div>
       </div>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Products</h1>
+          <h1 class="h2">Orders</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <a href="../cetak.php" target="_blank"><button type="button" class="btn  btn-outline-success mt-1">Export</button></a>
-            </div>
             <div class="btn-group mr-2">
                 <form class="form-inline my-2 my-lg-1" action="" method="post">
                 <input class="form-control mr-sm-2" type="search" name="keyword" id="keyword" placeholder="Search" aria-label="Search">
@@ -174,32 +170,25 @@ if( isset($_POST["search"]) ){
         <thead class="bg-dark">
             <tr>
                 <th scope="col">No</th>
-                <th scope="col">Code</th>
-                <th scope="col">Foto</th>
-                <th scope="col">Nama</th>
+                <th scope="col">Produk ID</th>
+                <th scope="col">Order ID</th>
                 <th scope="col">Harga</th>
-                <th scope="col">Stok</th>
-                <th scope="col">Keterangan</th>
-                <th scope="col">Tipe</th>
-                <th scope="col">Rating</th>
-                <th colspan=2 scope="col">Action</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Diskon</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             <?php $i=1; ?>
-            <?php foreach($products as $product): ?>
+            <?php foreach($orders as $order): ?>
             <tr>
             <th scope="row"><?= $i; ?></th>
-            <td><?= $product["product_code"]; ?></td>
-            <td><img src="../img/products/<?= $product["product_img_name"]; ?>" class="img-thumbnail" alt=""></td>
-            <td><?= $product["product_name"]; ?></td>
-            <td><?= $product["price_product"]; ?></td>
-            <td><?= $product["qty_product"]; ?></td>
-            <td><?= $product["product_desc"]; ?></td>
-            <td><?= $product["product_type"]; ?></td>
-            <td><?= $product["product_rating"]; ?></td>
-            <td><a href="ubah.php?productid=<?= $product["productid"]; ?>"><button class="btn btn-success">UBAH</button></a></td>
-            <td><a href="hapus.php?productid=<?= $product["productid"]; ?>"><button class="btn btn-secondary">HAPUS</button></a></td>
+            <td><?= $order["productid"]; ?></td>
+            <td><?= $order["order_id"]; ?></td>
+            <td><?= $order["unit_price"]; ?></td>
+            <td><?= $order["quantity"]; ?></td>
+            <td><?= $order["discount"]; ?></td>
+            <td><a href="orders.php"><button class="btn btn-success">Kembali</button></a></td>
             </tr>
             <?php $i+=1; ?>
             <?php endforeach; ?>
