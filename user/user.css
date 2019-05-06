@@ -52,3 +52,8 @@
 .form-control {
   outline-color: green;
 }
+
+.img-thumbnail {
+  width: 100px;
+  margin: auto;
+}

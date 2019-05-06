@@ -69,36 +69,15 @@ function cari($keyword){
 }
 
 function cariUser($keyword){
-    $query = "SELECT * FROM users WHERE first_name LIKE '$keyword%'";
+    $query = "SELECT * FROM users WHERE first_name LIKE '$keyword%' OR last_name LIKE '$keyword%'";
 
     return query($query);
 }
 
-function tambah($data){
-    global $conn;
+function cariOrder($keyword){
+    $query = "SELECT * FROM orders WHERE email LIKE '$keyword%'";
 
-    $product_code = htmlspecialchars($data["product_code"]);
-    $product_desc = htmlspecialchars($data["product_desc"]);
-    $qty_product = htmlspecialchars($data["qty_product"]);
-    $price_product = htmlspecialchars($data["price_product"]);
-    $product_name = htmlspecialchars($data["product_name"]);
-    $product_type = htmlspecialchars($data["product_type"]);
-
-    // upload gambar
-    $product_img_name = upload();
-    if( !$product_img_name ){
-        return false;
-    }
-
-    $query = "INSERT INTO products
-                    VALUES
-                ('', '$product_code', '$product_desc', '$product_img_name', '$qty_product',
-                '$price_product', '$product_name', '$product_type', NULL)
-            ";
-    
-    mysqli_query($conn, $query);
-
-    return mysqli_affected_rows($conn);
+    return query($query);
 }
 
 function upload(){
@@ -147,9 +126,78 @@ function upload(){
     $namaFileBaru .= '.';
     $namaFileBaru .= $ekstensiGambar;
 
-    move_uploaded_file($tmpName, '../img/products' . $namaFileBaru);
+    move_uploaded_file($tmpName, '../img/products/' . $namaFileBaru);
 
     return $namaFileBaru;
+}
+
+function tambah($data){
+    global $conn;
+
+    $product_code = htmlspecialchars($data["product_code"]);
+    $product_desc = htmlspecialchars($data["product_desc"]);
+    $qty_product = htmlspecialchars($data["qty_product"]);
+    $price_product = htmlspecialchars($data["price_product"]);
+    $product_name = htmlspecialchars($data["product_name"]);
+    $product_type = htmlspecialchars($data["product_type"]);
+
+    // upload gambar
+    $product_img_name = upload();
+    if( !$product_img_name ){
+        return false;
+    }
+
+    $query = "INSERT INTO products
+                    VALUES
+                ('', '$product_code', '$product_desc', '$product_img_name', '$qty_product',
+                '$price_product', '$product_name', '$product_type', NULL)
+            ";
+    
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function ubah($data){
+    global $conn;
+    
+    $productid = $data["productid"];
+    $product_code = htmlspecialchars($data["product_code"]);
+    $product_desc = htmlspecialchars($data["product_desc"]);
+    $qty_product = htmlspecialchars($data["qty_product"]);
+    $price_product = htmlspecialchars($data["price_product"]);
+    $product_name = htmlspecialchars($data["product_name"]);
+    $product_type = htmlspecialchars($data["product_type"]);
+    $product_rating = htmlspecialchars($data["product_rating"]);
+    $gambarLama = htmlspecialchars($data["gambarLama"]);
+
+    // cek user pilih gambar baru atau tidak
+    if( $_FILES['product_img_name']['error'] === 4 ){
+        $product_img_name = $gambarLama;
+    } else {
+        $product_img_name = upload();
+    }
+
+    $query = "UPDATE products SET
+            product_code = '$product_code',
+            product_desc = '$product_desc',
+            product_img_name = '$product_img_name',
+            qty_product = $qty_product,
+            price_product = $price_product,
+            product_name = '$product_name',
+            product_type = '$product_type',
+            product_rating = $product_rating
+            WHERE productid = $productid
+            ";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function hapus($id){
+    global $conn;
+    mysqli_query($conn, "DELETE FROM products WHERE productid = $id");
+    return mysqli_affected_rows($conn);
 }
 
 ?>

@@ -14,7 +14,7 @@ if( $_SESSION["user_type"] != "admin" ){
 }
 
 // pagination konfiguration
-$jumlahDataPerHalaman = 5;
+$jumlahDataPerHalaman = 6;
 $jumlahData = count(query("SELECT * FROM products"));
 $jumlahHalaman = ceil($jumlahData/$jumlahDataPerHalaman);
 $halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
@@ -156,8 +156,7 @@ if( isset($_POST["search"]) ){
           <h1 class="h2">Products</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <a href="tambah.php" ><button type="button" class="btn btn-outline-success mr-2 mt-1">Tambah Data</button></a>
-              <a href="tambah.php" ><button type="button" class="btn  btn-outline-success mt-1">Export</button></a>
+              <a href="../cetak.php" target="_blank"><button type="button" class="btn  btn-outline-success mt-1">Export</button></a>
             </div>
             <div class="btn-group mr-2">
                 <form class="form-inline my-2 my-lg-1" action="" method="post">
@@ -192,15 +191,15 @@ if( isset($_POST["search"]) ){
             <tr>
             <th scope="row"><?= $i; ?></th>
             <td><?= $product["product_code"]; ?></td>
-            <td><a href="../img/products/<?= $product["	product_img_name"]; ?>"></a></td>
+            <td><img src="../img/products/<?= $product["product_img_name"]; ?>" class="img-thumbnail" alt=""></td>
             <td><?= $product["product_name"]; ?></td>
             <td><?= $product["price_product"]; ?></td>
             <td><?= $product["qty_product"]; ?></td>
             <td><?= $product["product_desc"]; ?></td>
             <td><?= $product["product_type"]; ?></td>
             <td><?= $product["product_rating"]; ?></td>
-            <td><a href=""><button class="btn btn-success">UBAH</button></a></td>
-            <td><a href=""><button class="btn btn-secondary">HAPUS</button></a></td>
+            <td><a href="ubah.php?productid=<?= $product["productid"]; ?>"><button class="btn btn-success">UBAH</button></a></td>
+            <td><a href="hapus.php?productid=<?= $product["productid"]; ?>"><button class="btn btn-secondary">HAPUS</button></a></td>
             </tr>
             <?php $i+=1; ?>
             <?php endforeach; ?>
