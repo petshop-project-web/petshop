@@ -106,7 +106,7 @@ if( isset($_POST["search"]) ){
         </form>
         <div class="right-navbar">
           <ul class="navbar-nav mr-auto">
-              <a class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+              <a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user"></i>
@@ -140,36 +140,10 @@ if( isset($_POST["search"]) ){
     </div>
 
 <!-- product -->
-    <div class="content" id="product">
-      <div class="container">
-        <h3>Products</h3>
-
+    <div class="content container" id="product">
+      <div class="">
+        <h3>Product</h3>
         <div class="row">
-<<<<<<< HEAD
-          <?php for ($i=0; $i < 5; $i++) {
-            // code...
-          ?>
-          <a class="mb-3 mt-3 mr-2 ml-2">
-            <div class="card product" style="width: 13rem;">
-              <img src="img/logo.png" data-src="logo.png" class="lazy-load" height="200px" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Wiskas</h5>
-                <p class="card-text">Rp. 200.000</p>
-                <p class="card-location">Yogyakarta</p>
-              </div>
-            </div>
-          </a>
-
-        <?php } ?>
-        </div>
-
-      </div>
-    </div>
-
-<!-- Service -->
-    <div class="container" id="service">
-      <div class="jumbotron service">
-=======
           <?php foreach($products as $product): ?>
           <div class="col-sm-4">
             <div class="card product" style="width: 18rem;">
@@ -183,14 +157,12 @@ if( isset($_POST["search"]) ){
                 </h5>
                 <p class="price">Rp<?= $product["price_product"]?>,-</p>
                 <p class="card-text"><?= $product["product_desc"]?></p>
-                <a href="#" class="btn btn-secondary">ADD TO CART</a>
+                <?php  echo '<p><a href="update-cart.php?action=add&id='.$product['productid'].'"><input type="submit" value="Add To Cart" style="clear:both; background: #0078A0; border: none; color: #fff; font-size: 1em; padding: 10px;" /></a></p>'; ?>
               </div>
             </div>
           </div>
           <?php endforeach; ?>
         </div>
-      </div>
-    </div>
 
 <!-- Pagination -->
     <nav aria-label="Page navigation example">
@@ -219,21 +191,27 @@ if( isset($_POST["search"]) ){
       </ul>
     </nav>
 
-<!-- Location -->
-    <div class="container" id="location">
-      <div class="jumbotron location">
->>>>>>> 931282b6d24fc7faff0b0a7fba4d42fe62848203
+    </div>
+  </div>
+
+
+<!-- Service -->
+    <div class="container" id="service">
+      <div class="jumbotron bg-light service">
         <h1 class="display-4">Our Service</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <p class="lead">Have problem with your pets?</p>
         <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <p>Chat Us or Find Us !</p>
+        <div class="img-service">
+          <img src="img/service1.jpg" alt="" class="service1">
+          <img src="img/service2.jpg" alt="" class="service2">
+        </div>
+        <a class="btn btn-success btn-lg" href="https://api.whatsapp.com/send?phone=6282133882546&text=Saya%20Mau%20..." role="button">Chat Us</a>
       </div>
     </div>
 
 <!-- Location -->
     <div class="container" id="location">
-      <h3>Find Us !</h3>
       <div class="jumbotron location" id="map"></div>
     </div>
 
@@ -256,7 +234,7 @@ if( isset($_POST["search"]) ){
             <div class="col-md-4 mb-5">
               <h3>NEWSTELLER</h3>
               <br>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.
-              <br><input type="email" class="input-subscribe" placeholder="Subscribe Newsteller.."   name="" value=""><button type="submit" class="btn-subscribe" name="button">SUBSCRIBE</button>
+              <br><input type="email" class="input-subscribe" placeholder="Subscribe Newsteller.."   name="" value=""><button type="submit" class="btn-subscribe btn-success" name="button">SUBSCRIBE</button>
             </div>
           </div>
         </div>

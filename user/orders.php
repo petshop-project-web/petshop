@@ -172,16 +172,12 @@ if( isset($_POST["search"]) ){
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Kode Produk</th>
-                <th scope="col">email</th>
-                <th scope="col">Jumlah Barang</th>
-                <th scope="col">Total Harga</th>
-                <th scope="col">Tanggal Order</th>
-                <th scope="col">Tanggal Dikirim/th>
-                <th scope="col">Tanggal Terima</th>
-                <th scope="col">Shipper ID</th>
-                <th scope="col">Cart ID</th>
-                <th scope="col">Ongkos Kirim</th>
-                <th scope="col">Kota Kirim</th>
+                <th scope="col">Nama Produk</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Units</th>
+                <th scope="col">Total</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Email</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -191,16 +187,12 @@ if( isset($_POST["search"]) ){
             <tr>
             <th scope="row"><?= $i; ?></th>
             <td><?= $order["product_code"]; ?></td>
-            <td><?= $order["email"]; ?></td>
+            <td><?= $order["product_name"]; ?></td>
+            <td><?= $order["price"]; ?></td>
             <td><?= $order["units"]; ?></td>
-            <td><?= $order["total_price"]; ?></td>
-            <td><?= $order["order_date"]; ?></td>
-            <td><?= $order["shipped_date"]; ?></td>
-            <td><?= $order["arrived_date"]; ?></td>
-            <td><?= $order["shipper_id"]; ?></td>
-            <td><?= $order["cart_id"]; ?></td>
-            <td><?= $order["ship_price"]; ?></td>
-            <td><?= $order["ship_city"]; ?></td>
+            <td><?= $order["total"]; ?></td>
+            <td><?= $order["date"]; ?></td>
+            <td><?= $order["email"]; ?></td>
             <td><a href="detailorders.php?order_id=<?= $order["order_id"]; ?>"><button class="btn btn-success">DETAIL</button></a></td>
             </tr>
             <?php $i+=1; ?>

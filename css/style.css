@@ -89,8 +89,23 @@ ul .navbar-brand {
 }
 
 /* service */
+.service {
+  margin-bottom: 10px;
+  padding-bottom: 200px;
+}
+.service1 {
+  width: 350px;
+}
+.service2 {
+  width: 350px;
+  margin-bottom: 50px;
+}
+
+/* location */
 .location {
   background-color: rgba(0, 0, 0, 0.5);
+  height: 500px;
+  margin-bottom: 200px;
 }
 
 /* rating */
@@ -117,6 +132,21 @@ footer .container {
   margin: auto;
   padding: 15px 0;
 }
+footer a {
+  color: rgb(90, 93, 92);
+}
+
+footer a:hover {
+  color: rgb(65, 65, 65);
+  text-decoration: none;
+}
+.input-subscribe, .btn-subscribe {
+  padding: 0 5px;
+  height: 35px;
+}
+.btn-subscribe {
+  border: none;
+}
 
 /* login */
 .login,
@@ -131,6 +161,25 @@ footer .container {
   border-radius: 4px;
   max-width: 600px;
 }
+
+/* cart */
+.cart-view {
+  margin:30px 0;
+  margin-bottom: 200px;
+}
+.label-cart {
+  margin-top: -30px;
+  margin-bottom: 30px;
+}
+.btn-quantity-plus,.btn-quantity-min  {
+  width: 20px;
+  padding: 2px;
+  text-align: center;
+}
+.btn-quantity-plus {
+  margin-left: 11%;
+}
+
 
 @media (min-width: 992px) {
 
@@ -189,6 +238,19 @@ footer .container {
 
   .register {
     width: 60%;
+  }
+
+  .service1 {
+    right: 250px;
+    position: absolute;
+    margin-top: -230px;
+    width: 500px;
+  }
+  .service2 {
+    right: 650px;
+    position: absolute;
+    width: 350px;
+    margin-top: -65px;
   }
 
 }

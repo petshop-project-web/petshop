@@ -1,7 +1,7 @@
 <?php
 
 require 'function.php';
-session_start();
+if(session_id() == '' || !isset($_SESSION)){session_start();}
 
 // cek cookie
 if( isset($_COOKIE['id']) && isset($_COOKIE['key']) ){
@@ -24,7 +24,7 @@ if(isset($_SESSION["login"])){
 }
 
 if( isset($_POST["login"]) ){
-  
+
   $email = $_POST["email"];
   $password = $_POST["password"];
 
@@ -147,7 +147,7 @@ if( isset($_POST["login"]) ){
       <form action="" method="post">
         <div class="form-group">
           <label for="email">Alamat Email</label>
-          <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+          <input type="email" name="email" class="form-control" id="email" placeholder="Email">
           <small id="email" class="form-text text-muted">Masukan Alamat Email</small>
         </div>
         <div class="form-group">

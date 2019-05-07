@@ -38,6 +38,27 @@ if( isset($_POST["search"]) ){
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+
+
+        <script>
+          function initMap() {
+          var myLatLng = {lat: -7.7588344, lng: 110.405816};
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 20,
+            center: myLatLng
+          });
+
+          var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'The Lucky Pet Shop n Care'
+          });
+        }
+        </script>
+          <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuWuNmo6K-TBI-yb3ZVu7b0TD2fQBrP4Q&callback=initMap">
+          </script>
   </head>
 
   <body>
@@ -60,10 +81,10 @@ if( isset($_POST["search"]) ){
             <a class="nav-link" href="#product">Product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Service</a>
+            <a class="nav-link" href="#service">Service</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Location</a>
+            <a class="nav-link" href="#location">Location</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-1">
@@ -73,7 +94,7 @@ if( isset($_POST["search"]) ){
         <div class="right-navbar">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+              <a href="cart.php" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -118,7 +139,7 @@ if( isset($_POST["search"]) ){
                 <h5 class="card-title"><?= $product["product_name"]?></h5>
                 <p class="price">Rp<?= $product["price_product"]?>,-</p>
                 <p class="card-text"><?= $product["product_desc"]?></p>
-                <a href="#" class="btn btn-secondary">ADD TO CART</a>
+                <?php  echo '<p><a href="update-cart.php?action=add&id='.$product['productid'].'"><input type="submit" value="Add To Cart" style="clear:both; background: #0078A0; border: none; color: #fff; font-size: 1em; padding: 10px;" /></a></p>'; ?>
               </div>
             </div>
           </div>
@@ -154,38 +175,86 @@ if( isset($_POST["search"]) ){
       </ul>
     </nav>
 
-    <footer>
-      <div class="container">
-          <div class="row">
-            <div class="col-md-4">
-              <h2>INFORMATION</h2>
-              <br><a href="#">About Us</a>
-              <br><a href="#">Contact Us</a>
-              <br><a href="#">Find Us</a>
+
+    <!-- Service -->
+        <div class="container" id="service">
+          <div class="jumbotron bg-light service">
+            <h1 class="display-4">Our Service</h1>
+            <p class="lead">Have problem with your pets?</p>
+            <hr class="my-4">
+            <p>Chat Us or Find Us !</p>
+            <div class="img-service">
+              <img src="img/service1.jpg" alt="" class="service1">
+              <img src="img/service2.jpg" alt="" class="service2">
             </div>
-            <div class="col-md-4">
-              <h2>Contact Us</h2>
-              <br><a href="#">Jl. Babarsari no 24, Depok</a>
-              <br><a href="#">082133882546</a>
-              <br><a href="#">Line : @petshop</a>
-            </div>
-            <div class="col-md-4">
-              <h2>Newsteller</h2>
-              <br>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.
-              <br><input type="email" name="" value=""><button type="submit" name="button"></button>
-            </div>
+            <a class="btn btn-success btn-lg" href="https://api.whatsapp.com/send?phone=6282133882546&text=Saya%20Mau%20..." role="button">Chat Us</a>
           </div>
         </div>
-        <div class="copyright">
-          Copyright (c) 2019 Copyright Holder All Rights Reserved.
+
+    <!-- Location -->
+        <div class="container" id="location">
+          <div class="jumbotron location" id="map"></div>
         </div>
-      </footer>
+
+    <!-- footer -->
+        <footer>
+          <div class="container">
+              <div class="row">
+                <div class="col-md-4 mb-5">
+                  <h3>INFORMATIONS</h3>
+                  <br><a href="#">About Us</a>
+                  <br><a href="#">Contact Us</a>
+                  <br><a href="#">Find Us</a>
+                </div>
+                <div class="col-md-4 mb-5">
+                  <h3>CONTACT US</h3>
+                  <br><a href="#">Jl. Babarsari no 24, Depok</a>
+                  <br><a href="#">082133882546</a>
+                  <br><a href="#">Line : @petshop</a>
+                </div>
+                <div class="col-md-4 mb-5">
+                  <h3>NEWSTELLER</h3>
+                  <br>You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.
+                  <br><input type="email" class="input-subscribe" placeholder="Subscribe Newsteller.."   name="" value=""><button type="submit" class="btn-subscribe btn-success" name="button">SUBSCRIBE</button>
+                </div>
+              </div>
+            </div>
+            <div class="copyright">
+              Copyright (c) 2019 Copyright Holder All Rights Reserved.
+            </div>
+          </footer>
+
+          <script type="text/javascript">
+            var load = window.addEventListener("load", function() {
 
 
+            });
+            var resize = window.addEventListener("resize", function() {
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+            });
+            var scroll = window.addEventListener("scroll", function() {
+
+
+            });
+            function loadImages() {
+              var images = document.querySelectorAll(".lazy-load");
+
+              for (var i = 0; i < immage.length; i++) {
+                var imageBounds = images[i].getBoundingClientRect();
+
+                if (imageBounds.top >= 0 &&
+                    imageBounds.left >= 0 &&
+                    imageBounds.bottom <= window.innerHeight &&
+                    imageBounds.right <= window.innerWidht) {
+                      images[i].src = "i"
+                }
+              }
+            }
+          </script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   </body>
 </html>
