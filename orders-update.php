@@ -18,7 +18,7 @@ if(isset($_SESSION['cart'])) {
 
         $cost = $obj->price_product * $quantity;
 
-        $user = $_SESSION["login"];
+        $user = $_SESSION["email"];
 
         $query = $conn->query("INSERT INTO orders (product_code, product_name, price, units, total, email) VALUES( '$obj->product_code', '$obj->product_name', $obj->price_product, $quantity, $cost, '$user')");
 

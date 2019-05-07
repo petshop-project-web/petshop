@@ -62,7 +62,6 @@ if( isset($_POST["search"]) ){
   </head>
 
   <body>
-
     <!-- navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="#">

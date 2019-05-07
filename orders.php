@@ -77,7 +77,7 @@ include 'function.php';
         <hr>
 
         <?php
-          $user = $_SESSION["login"];
+          $user = $_SESSION["email"];
           $result = $conn->query("SELECT * from orders where email='".$user."'");
           if($result) {
             while($obj = $result->fetch_object()) {

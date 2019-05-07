@@ -39,7 +39,7 @@ if( isset($_POST["login"]) ){
 
       // set session
       $_SESSION["login"] = true;
-
+      $_SESSION['email'] = $email;
       // cek rememeber me
       if( isset($_POST["rememberme"]) ){
         // buat cookie
