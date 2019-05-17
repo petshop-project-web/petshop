@@ -206,7 +206,7 @@ if( isset($_POST["search"]) ){
           <img src="img/service1.jpg" alt="" class="service1">
           <img src="img/service2.jpg" alt="" class="service2">
         </div>
-        <a class="btn btn-success btn-lg" href="https://api.whatsapp.com/send?phone=6282133882546&text=Saya%20Mau%20..." role="button">Chat Us</a>
+          <a class="btn btn-success btn-lg" href="https://api.whatsapp.com/send?phone=6282133882546&text=Saya%20Mau%20..." role="button">Chat Us</a>
       </div>
     </div>
 
